@@ -246,6 +246,7 @@
                         android:id="@+id/editText2"
                         android:layout_width="378dp"
                         android:layout_height="30dp"
+                        android:drawableRight="@drawable/ic_date_range_black"
                         android:background="@drawable/border"
                         android:ems="10" />
 
@@ -301,8 +302,8 @@
                         android:layout_width="370dp"
                         android:layout_height="30dp"
                         android:layout_weight="1"
+                        android:drawableRight="@drawable/ic_arrow_drop_down_black"
                         android:background="@drawable/border"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light"
                         android:entries="@array/data_spinner"
                         android:spinnerMode="dropdown" />
 
@@ -354,7 +355,7 @@
                         android:layout_weight="1" />
 
                     <EditText
-                        android:id="@+id/editText4"
+                        android:id="@+id/editText3"
                         android:layout_width="378dp"
                         android:layout_height="30dp"
                         android:background="@drawable/border"
@@ -366,6 +367,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
                 </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/loading"
+                    android:layout_marginTop="30dp"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 

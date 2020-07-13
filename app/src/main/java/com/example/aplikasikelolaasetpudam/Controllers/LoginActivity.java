@@ -8,34 +8,52 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.aplikasikelolaasetpudam.HomeActivity;
 import com.example.aplikasikelolaasetpudam.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
 
-//    private EditText Username, Password;
-//    private Button Login, Register;
-//    private ProgressBar Loading;
-//    private static String URL_LOGIN = "";
-//    SessionManager sessionManager;
+    private EditText Username, Password;
+    private Button Login, Register;
+    private ProgressBar Loading;
+    private static String URL_LOGIN = "";
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-//        sessionManager = new SessionManager(this);
-//
-//        Loading = (ProgressBar) findViewById(R.id.loading);
-//        Username = (EditText) findViewById(R.id.editText);
-//        Password = (EditText) findViewById(R.id.editText1);
-//        Login = (Button) findViewById(R.id.buttonLogin);
-//        Register = (Button) findViewById(R.id.buttonRegister);
+        sessionManager = new SessionManager(this);
+
+        Loading = (ProgressBar) findViewById(R.id.loading);
+        Username = (EditText) findViewById(R.id.editText);
+        Password = (EditText) findViewById(R.id.editText1);
+        Login = (Button) findViewById(R.id.buttonLogin);
+        Register = (Button) findViewById(R.id.buttonRegister);
 
 //        Login.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+////            @Override
+////            public void onClick(View v) {
 //                String mUsername = Username.getText().toString().trim();
 //                String mPassword = Password.getText().toString().trim();
 //
@@ -119,6 +137,7 @@ public class LoginActivity extends AppCompatActivity {
 //        requestQueue.add(stringRequest);
 //    }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {

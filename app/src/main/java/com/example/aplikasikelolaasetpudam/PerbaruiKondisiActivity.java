@@ -26,10 +26,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aplikasikelolaasetpudam.Controllers.SessionManager;
 import com.example.aplikasikelolaasetpudam.Service.Check;
 
 import java.io.ByteArrayOutputStream;
@@ -44,10 +46,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PerbaruiKondisiActivity extends AppCompatActivity {
 
+    private EditText KodeAset, NamaAset, TglPerbarui, Keterangan;
+    Spinner KondisiAset;
+    private ProgressBar Loading;
+    private static String URL_KONDISI = "";
+    SessionManager sessionManager;
     // Tambahkan Foto
     CircleImageView imageView;
-    Button button3;
-    Spinner spinner;
+    Button Foto;
     private static final int CAMERA_REQUEST = 1;
     private static final int SELECT_FILE = 2;
     String currentPhotoPath;
@@ -63,13 +69,17 @@ public class PerbaruiKondisiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perbarui_kondisi);
 
+        sessionManager = new SessionManager(this);
+
+        Loading = (ProgressBar) findViewById(R.id.loading);
         imageView = (CircleImageView) findViewById(R.id.myPict);
-        button3 = (Button) findViewById(R.id.button3);
-        spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.data_spinner, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        button3.setOnClickListener(new View.OnClickListener() {
+        Foto = (Button) findViewById(R.id.button3);
+        KodeAset = (EditText) findViewById(R.id.editText);
+        NamaAset = (EditText) findViewById(R.id.editText1);
+        TglPerbarui = (EditText) findViewById(R.id.editText2);
+        KondisiAset = (Spinner) findViewById(R.id.spinner);
+        Keterangan = (EditText) findViewById(R.id.editText3);
+        Foto.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(PerbaruiKondisiActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(PerbaruiKondisiActivity.this, new String[]{Manifest.permission.CAMERA}, 1);

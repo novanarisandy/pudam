@@ -30,11 +30,14 @@ public class RegisterActivity extends AppCompatActivity {
     private Button Register;
     private ProgressBar Loading;
     private static String URL_REGISTER = "";
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        sessionManager = new SessionManager(this);
 
         Loading = (ProgressBar) findViewById(R.id.loading);
         Nama = (EditText) findViewById(R.id.editText);
@@ -47,12 +50,26 @@ public class RegisterActivity extends AppCompatActivity {
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Register();
+                String mNama = Nama.getText().toString().trim();
+                String mEmail = Email.getText().toString().trim();
+                String mUsername = Username.getText().toString().trim();
+                String mPassword = Password.getText().toString().trim();
+                String mc_Password = c_Password.getText().toString().trim();
+
+                if (!mNama.isEmpty() || !mEmail.isEmpty() || !mUsername.isEmpty() || !mPassword.isEmpty() || !mc_Password.isEmpty()) {
+                    register(mNama, mEmail, mUsername, mPassword, mc_Password);
+                } else {
+                    Nama.setError("Nama harus diisi!");
+                    Email.setError("Email harus diisi!");
+                    Username.setError("Username harus diisi");
+                    Password.setError("Password harus diisi!");
+                    c_Password.setError("Confirm Password harus diisi");
+                }
             }
         });
     }
 
-    private void Register() {
+    private void register(String mNama, String mEmail, String mUsername, String mPassword, String mc_password) {
         Loading.setVisibility(View.VISIBLE);
         Register.setVisibility(View.GONE);
 
@@ -60,6 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
         final String email = this.Email.getText().toString().trim();
         final String username = this.Username.getText().toString().trim();
         final String password = this.Password.getText().toString().trim();
+        final String c_password = this.c_Password.getText().toString().trim();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_REGISTER, new Response.Listener<String>() {
             @Override
@@ -97,6 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
                 params.put("Email", email);
                 params.put("Username", username);
                 params.put("Password", password);
+                params.put("c_Password", c_password);
                 return params;
             }
         };
@@ -105,8 +124,8 @@ public class RegisterActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void Login(View view) {
-        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-        startActivity(intent);
-    }
+//    public void Login(View view) {
+//        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//    }
 }
