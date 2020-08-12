@@ -21,6 +21,8 @@ public class SessionManager {
     public static final String USERNAME = "Username";
     public static final String PASSWORD = "Password";
     public static final String C_PASSWORD = "Confirm_Password";
+    public static final String KODE_ASET = "Kode_Aset";
+    public static final String NAMA_ASET = "Nama_Aset";
 
     public SessionManager(Context context) {
         this.context = context;
@@ -28,13 +30,15 @@ public class SessionManager {
         editor = sharedPreferences.edit();
     }
 
-    public void createSession(String nama, String email, String username, String password, String c_password) {
+    public void createSession(String nama, String email, String username, String password, String c_password, String kode_aset, String nama_aset) {
         editor.putBoolean(LOGIN, true);
-        editor.putString(NAMA, username);
-        editor.putString(EMAIL, password);
+        editor.putString(NAMA, nama);
+        editor.putString(EMAIL, email);
         editor.putString(USERNAME, username);
         editor.putString(PASSWORD, password);
-        editor.putString(C_PASSWORD, username);
+        editor.putString(C_PASSWORD, c_password);
+        editor.putString(KODE_ASET, kode_aset);
+        editor.putString(NAMA_ASET, nama_aset);
         editor.apply();
     }
 
@@ -54,7 +58,7 @@ public class SessionManager {
         }
     }
 
-    public HashMap<String, String> getUserDetail() {
+    public HashMap<String, String> getUserDetails() {
 
         HashMap<String, String> user = new HashMap<>();
         user.put(NAMA, sharedPreferences.getString(NAMA, null));
@@ -62,7 +66,8 @@ public class SessionManager {
         user.put(USERNAME, sharedPreferences.getString(USERNAME, null));
         user.put(PASSWORD, sharedPreferences.getString(PASSWORD, null));
         user.put(C_PASSWORD, sharedPreferences.getString(C_PASSWORD, null));
-
+        user.put(KODE_ASET, sharedPreferences.getString(KODE_ASET,null));
+        user.put(NAMA_ASET, sharedPreferences.getString(NAMA_ASET,null));
         return user;
     }
 
@@ -76,5 +81,7 @@ public class SessionManager {
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
         }
-    }
+
+
+}
 

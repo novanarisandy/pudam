@@ -31,7 +31,7 @@
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    app:srcCompat="@drawable/lg" />
+                    app:srcCompat="@drawable/logo" />
             </LinearLayout>
 
             <LinearLayout
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
                     android:text="REGISTER"
-                    android:textAlignment="center"
+                    android:gravity="center"
                     android:textSize="25sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -75,7 +75,6 @@
                     android:ems="10"
                     android:hint="Nama"
                     android:inputType="textPersonName"
-                    android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textColor="@android:color/black" />
 
@@ -110,7 +109,6 @@
                     android:ems="10"
                     android:hint="Email"
                     android:inputType="textEmailAddress"
-                    android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textColor="@android:color/black" />
 
@@ -145,7 +143,6 @@
                     android:ems="10"
                     android:hint="Username"
                     android:inputType="textPersonName"
-                    android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textColor="@android:color/black" />
 
@@ -180,7 +177,6 @@
                     android:ems="10"
                     android:hint="Password"
                     android:inputType="textPassword"
-                    android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textColor="@android:color/black" />
 
@@ -215,7 +211,6 @@
                     android:ems="10"
                     android:hint="Confirm Password"
                     android:inputType="textPassword"
-                    android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textColor="@android:color/black" />
 
@@ -252,8 +247,6 @@
                     android:layout_width="330dp"
                     android:layout_height="55dp"
                     android:background="@drawable/btndesain"
-                    android:gravity="center"
-                    android:onClick="Login"
                     android:text="Register"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
@@ -266,5 +259,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

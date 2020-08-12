@@ -14,10 +14,5 @@
         android:id="@+id/item3"
         android:title="Profil"
         app:showAsAction="never" />
-    <item android:id="@+id/action_search"
-        android:title="Search"
-        android:icon="@drawable/ic_search_black"
-        app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
 </menu>

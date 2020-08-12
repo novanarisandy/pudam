@@ -21,30 +21,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView68"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Aset"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/myPict"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
-                    android:src="@drawable/brg" />
+                    android:src="@drawable/aset" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/button"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:background="#00FFFFFF"
@@ -76,8 +60,6 @@
                     android:layout_width="350dp"
                     android:layout_height="2dp"
                     android:background="@android:color/black"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
                     android:textStyle="bold" />
 
                 <Space
@@ -111,7 +93,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Kode Aset"
-                        android:textAlignment="textStart"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -166,7 +147,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Nama Aset"
-                        android:textAlignment="textStart"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -193,7 +173,7 @@
                         android:layout_height="30dp"
                         android:background="@drawable/border"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textMultiLine" />
 
                     <Space
                         android:layout_width="wrap_content"
@@ -221,7 +201,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tanggal Perbarui Aset"
-                        android:textAlignment="textStart"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -246,9 +225,10 @@
                         android:id="@+id/editText2"
                         android:layout_width="378dp"
                         android:layout_height="30dp"
-                        android:drawableRight="@drawable/ic_date_range_black"
                         android:background="@drawable/border"
-                        android:ems="10" />
+                        android:drawableRight="@drawable/ic_date_range_black"
+                        android:ems="10"
+                        android:inputType="date" />
 
                     <Space
                         android:layout_width="wrap_content"
@@ -276,7 +256,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Kondisi Aset"
-                        android:textAlignment="textStart"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -299,11 +278,10 @@
 
                     <Spinner
                         android:id="@+id/spinner"
-                        android:layout_width="370dp"
+                        android:layout_width="378dp"
                         android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:drawableRight="@drawable/ic_arrow_drop_down_black"
                         android:background="@drawable/border"
+                        android:drawableRight="@drawable/ic_arrow_drop_down_black"
                         android:entries="@array/data_spinner"
                         android:spinnerMode="dropdown" />
 
@@ -329,11 +307,63 @@
                         android:layout_weight="1" />
 
                     <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lokasi Aset"
+                        android:drawableRight="@drawable/ic_pin_drop_black"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="27" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtHasil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Berbagi lokasi terkini"
+                        android:paddingLeft="13dp" />
+
+                    <EditText
+                        android:id="@+id/editText3"
+                        android:layout_width="378dp"
+                        android:layout_height="75dp"
+                        android:layout_marginLeft="8dp"
+                        android:background="@drawable/border"
+                        android:ems="10"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:orientation="vertical"></LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
                         android:id="@+id/textView8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Keterangan"
-                        android:textAlignment="textStart"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -355,12 +385,12 @@
                         android:layout_weight="1" />
 
                     <EditText
-                        android:id="@+id/editText3"
+                        android:id="@+id/editText4"
                         android:layout_width="378dp"
                         android:layout_height="30dp"
                         android:background="@drawable/border"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textMultiLine" />
 
                     <Space
                         android:layout_width="wrap_content"
@@ -374,7 +404,6 @@
                     android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -393,7 +422,7 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/btnSimpan"
                     android:layout_width="wrap_content"
                     android:layout_height="45dp"
                     android:layout_weight="1"
@@ -409,13 +438,12 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/button1"
+                    android:id="@+id/btnBatal"
                     android:layout_width="wrap_content"
                     android:layout_height="45dp"
                     android:layout_weight="1"
                     android:background="@drawable/rectangular_input"
                     android:text="Batal"
-                    android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="17sp" />
@@ -427,5 +455,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

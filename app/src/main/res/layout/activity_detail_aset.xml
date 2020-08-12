@@ -21,30 +21,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Detail Aset"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/myPict"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
-                    android:src="@drawable/brg" />
+                    android:src="@drawable/aset" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/button"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:background="#00FFFFFF"
@@ -76,8 +60,6 @@
                     android:layout_width="350dp"
                     android:layout_height="2dp"
                     android:background="@android:color/black"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
                     android:textStyle="bold" />
 
                 <Space
@@ -89,7 +71,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -101,50 +83,30 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                     <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="30dp"
                         android:text="Kode Aset"
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                     <TextView
-                        android:id="@+id/textView24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
                         android:text=":"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/textViewKodeAset"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:hint="......................."
+                        android:paddingLeft="10dp"
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -164,50 +126,30 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                     <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="30dp"
                         android:text="Nama Aset"
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                     <TextView
-                        android:id="@+id/textView25"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
                         android:text=":"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/textViewNamaAset"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:hint="......................."
+                        android:paddingLeft="10dp"
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -227,50 +169,30 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                     <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="wrap_content"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="30dp"
                         android:text="Satuan"
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                     <TextView
-                        android:id="@+id/textView26"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
                         android:text=":"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView7"
+                        android:id="@+id/textViewSatuan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:hint="......................."
+                        android:paddingLeft="10dp"
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -290,50 +212,30 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                     <TextView
-                        android:id="@+id/textView8"
-                        android:layout_width="wrap_content"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="30dp"
                         android:text="Volume"
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                     <TextView
-                        android:id="@+id/textView27"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
                         android:text=":"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/textViewVolume"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:hint="......................."
+                        android:paddingLeft="10dp"
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -353,50 +255,30 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
                     android:text="Harga Perolehan"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView28"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:text=":"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/textViewHargaPerolehan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:hint="......................."
+                    android:paddingLeft="10dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
             </LinearLayout>
 
         </LinearLayout>
@@ -416,52 +298,30 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:paddingLeft="30dp"
                     android:text="Tahun Harga Perolehan"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView29"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:paddingLeft="5dp"
                     android:text=":"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/textViewThnHargaPerolehan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:hint="......................."
+                    android:paddingLeft="10dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
             </LinearLayout>
 
         </LinearLayout>
@@ -481,50 +341,30 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
                     android:text="Sumber Dana"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:text=":"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/textViewSumberDana"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:hint="......................."
+                    android:paddingLeft="10dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
             </LinearLayout>
 
         </LinearLayout>
@@ -544,50 +384,30 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
                     android:text="Tarif"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView31"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:text=":"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView17"
+                    android:id="@+id/textViewTarif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:hint="......................."
+                    android:paddingLeft="10dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
             </LinearLayout>
 
         </LinearLayout>
@@ -607,50 +427,30 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
                     android:text="Golongan"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView32"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:text=":"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView19"
+                    android:id="@+id/textViewGolongan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:hint="......................."
+                    android:paddingLeft="10dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
             </LinearLayout>
 
         </LinearLayout>
@@ -670,50 +470,30 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
                     android:text="Kondisi Aset"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView33"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:text=":"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/textViewKondisiAset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:hint="......................."
+                    android:paddingLeft="10dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
             </LinearLayout>
 
         </LinearLayout>
@@ -733,50 +513,30 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
                     android:text="Lokasi"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <TextView
-                    android:id="@+id/textView34"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:text=":"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/textViewLokasi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:hint="......................."
+                    android:paddingLeft="10dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
             </LinearLayout>
 
         </LinearLayout>
@@ -797,7 +557,7 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/button1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -814,7 +574,7 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/button1"
+                    android:id="@+id/button2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -830,6 +590,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
             </LinearLayout>
+
         </LinearLayout>
+
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

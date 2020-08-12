@@ -1,8 +1,12 @@
 <resources>
+    <string name="main_activity_melihatdataaset">Data Aset</string>
     <string name="main_activity_pencarianlokasi">Pencarian Lokasi</string>
+    <string name="main_activity_tanggapanpencarian">Tanggapan Pencarian</string>
+    <string name="main_activity_pindaiqrcode">Pindai QR Code</string>
+    <string name="main_activity_detailaset">Detail Aset</string>
     <string name="main_activity_perbaruikondisi">Perbarui Kondisi</string>
     <string name="main_activity_perbaruimutasi">Perbarui Mutasi</string>
-
+    <string name="main_activity_profil">Profil</string>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -22,5 +26,4 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 </resources>

@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.aplikasikelolaasetpudam.Config.Server;
 import com.example.aplikasikelolaasetpudam.R;
 
 import org.json.JSONException;
@@ -29,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText Nama, Email, Username, Password, c_Password;
     private Button Register;
     private ProgressBar Loading;
-    private static String URL_REGISTER = "";
+    private static String URL_REGISTER = Server.URL + "";
     SessionManager sessionManager;
 
     @Override
@@ -60,10 +61,10 @@ public class RegisterActivity extends AppCompatActivity {
                     register(mNama, mEmail, mUsername, mPassword, mc_Password);
                 } else {
                     Nama.setError("Nama harus diisi!");
-                    Email.setError("Email harus diisi!");
-                    Username.setError("Username harus diisi");
+                    Email.setError("Email harus diisi");
+                    Username.setError("Username harus diisi!");
                     Password.setError("Password harus diisi!");
-                    c_Password.setError("Confirm Password harus diisi");
+                    c_Password.setError("Confirm Password harus diisi!");
                 }
             }
         });
@@ -73,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
         Loading.setVisibility(View.VISIBLE);
         Register.setVisibility(View.GONE);
 
-        final String name = this.Nama.getText().toString().trim();
+        final String nama = this.Nama.getText().toString().trim();
         final String email = this.Email.getText().toString().trim();
         final String username = this.Username.getText().toString().trim();
         final String password = this.Password.getText().toString().trim();
@@ -111,11 +112,11 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("Nama", name);
+                params.put("Nama", nama);
                 params.put("Email", email);
                 params.put("Username", username);
                 params.put("Password", password);
-                params.put("c_Password", c_password);
+                params.put("Confirm_Password", c_password);
                 return params;
             }
         };

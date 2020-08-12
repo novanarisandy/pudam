@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.aplikasikelolaasetpudam.Config.Server;
 import com.example.aplikasikelolaasetpudam.HomeActivity;
 import com.example.aplikasikelolaasetpudam.R;
 
@@ -35,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText Username, Password;
     private Button Login, Register;
     private ProgressBar Loading;
-    private static String URL_LOGIN = "";
+    private static String URL_LOGIN = Server.URL + "";
     SessionManager sessionManager;
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.aplikasikelolaasetpudam;
+package com.example.aplikasikelolaasetpudam.Service;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.aplikasikelolaasetpudam.Controllers.LoginActivity;
+import com.example.aplikasikelolaasetpudam.R;
 
 public class SplashActivity extends AppCompatActivity {
 

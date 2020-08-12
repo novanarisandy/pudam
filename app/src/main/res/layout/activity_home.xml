@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg"
+            android:background="@drawable/background"
             android:orientation="vertical">
 
             <LinearLayout
@@ -38,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/alice"
                         android:text="HOME"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textColor="#03A9F4"
                         android:textSize="25sp"
                         android:textStyle="bold" />
@@ -59,8 +59,7 @@
                         android:layout_width="220dp"
                         android:layout_height="55dp"
                         android:background="@drawable/rectangular_input"
-                        android:gravity="center"
-                        android:onClick="Data_Aset"
+                        android:onClick="Melihat_Data_Aset"
                         android:text="Melihat Data Aset"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white"
@@ -92,7 +91,6 @@
                         android:layout_width="220dp"
                         android:layout_height="55dp"
                         android:background="@drawable/rectangular_input"
-                        android:gravity="center"
                         android:onClick="Pencarian_Lokasi"
                         android:text="Pencarian Lokasi"
                         android:textAllCaps="false"
@@ -125,7 +123,6 @@
                         android:layout_width="220dp"
                         android:layout_height="55dp"
                         android:background="@drawable/rectangular_input"
-                        android:gravity="center"
                         android:onClick="Pindai_QRCode"
                         android:text="Pindai QR Code"
                         android:textAllCaps="false"
@@ -137,8 +134,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
                 </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

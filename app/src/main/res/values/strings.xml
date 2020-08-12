@@ -1,9 +1,30 @@
 <resources>
     <string name="app_name">Aplikasi Kelola Aset PUDAM</string>
+    <string name="app_names">Search</string>
     <string name="example_by_case_sign_in"><u><font>Register</font></u></string>
     <string name="example_by_case_import"><u><font>Tambahkan Foto</font></u></string>
-    <string name="example_by_case_maps"><u><font>Tambahkan Lokasi Aset</font></u></string>
     <string name="title_activity_maps">Map</string>
+    <string-array name="tahun">
+        <item>Tahun</item>
+        <item>Tahun</item>
+        <item>Tahun</item>
+        <item>Tahun</item>
+        <item>Tahun</item>
+    </string-array>
+    <string-array name="nama">
+        <item>Nama</item>
+        <item>Nama</item>
+        <item>Nama</item>
+        <item>Nama</item>
+        <item>Nama</item>
+    </string-array>
+    <string-array name="lokasi">
+        <item>Lokasi</item>
+        <item>Lokasi</item>
+        <item>Lokasi</item>
+        <item>Lokasi</item>
+        <item>Lokasi</item>
+    </string-array>
     <string-array name="data_spinner">
         <item>Baik</item>
         <item>Rusak Ringan</item>

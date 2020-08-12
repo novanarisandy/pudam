@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg"
+            android:background="@drawable/background"
             android:orientation="vertical">
 
             <LinearLayout
@@ -31,10 +31,10 @@
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
                     android:gravity="center"
                     android:text="Pegawai dapat mengisi form pencarian dibawah ini dengan memasukkan kode atau nama aset"
-                    android:textColor="#838282"
-                    android:textSize="18sp" />
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -52,11 +52,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Cek Tanggapan Pencarian Anda"
-                    android:textAlignment="center"
+                    android:gravity="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -81,22 +80,19 @@
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:ems="10"
-                    android:hint="Masukkan Kode atau Nama"
+                    android:hint="Masukkan Nama"
                     android:inputType="textPersonName"
-                    android:textAlignment="textStart"
                     android:textAllCaps="false" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/btnCari"
                     android:layout_width="40dp"
                     android:layout_height="35dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:ems="10"
-                    android:gravity="center"
                     android:hint="Cari"
-                    android:onClick="Melihat_Data_Aset"
-                    android:textAlignment="center"
+                    android:onClick="Tanggapan_Pencarian"
                     android:textAllCaps="false"
                     android:textSize="18sp" />
 
@@ -107,5 +103,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,13 +28,28 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.aplikasikelolaasetpudam.Controllers.LoginActivity;
+import com.example.aplikasikelolaasetpudam.Controllers.SessionManager;
 import com.example.aplikasikelolaasetpudam.Service.Check;
 import com.example.aplikasikelolaasetpudam.Service.Constants;
 import com.example.aplikasikelolaasetpudam.Service.GeocoderIntentService;
@@ -53,19 +68,35 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import com.example.aplikasikelolaasetpudam.Service.MyLocationService;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class PerbaruiMutasiActivity extends AppCompatActivity {
 
+    private EditText KodeAset, NamaAset, TglPerbarui, LokasiAset, Keterangan;
+    private TextView textHasil;
+    private Button Simpan, Batal;
+    Spinner KondisiAset;
+    private ProgressBar Loading;
+    String foto = "";
+    String id_aset = "";
+    String kode_aset = "";
+//    private final String URL = "http://192.168.43.134/aset/public/aset/test?id="+kode_aset;
+//    private final String URL_MUTASI = "http://192.168.43.134/aset/public/aset/aset/"+id_aset;
     private static final String TAG = "PerbaruiMutasiActivity";
-    MyLocationService mService;
+    SessionManager sessionManager;
     // Tambahkan Foto
     CircleImageView imageView;
-    Button button3;
+    Button Foto;
     private static final int CAMERA_REQUEST = 1;
     private static final int SELECT_FILE = 2;
     String currentPhotoPath;
@@ -73,113 +104,47 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
     // Memperbarui Tanggal
     DatePickerDialog picker;
     EditText eText;
-    Button btnGet;
     // Memperbarui Lokasi
     Context mContext;
+    MyLocationService mService;
     protected LocationManager locationManager;
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1;
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000;
     private GeocoderResultReceiver geocoderReceiver;
     private boolean mLastLocation;
     private LatLng latLng;
-    private TextView textHasil;
-    private TextView tvw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perbarui_mutasi);
+
+        id_aset = getIntent().getStringExtra("id_asets");
+        kode_aset = getIntent().getStringExtra("kode_asets");
+        sessionManager = new SessionManager(getApplicationContext());
+
+        Loading = (ProgressBar) findViewById(R.id.loading);
+        KodeAset = (EditText) findViewById(R.id.editText);
+        NamaAset = (EditText) findViewById(R.id.editText1);
+        TglPerbarui = (EditText) findViewById(R.id.editText2);
+        KondisiAset = (Spinner) findViewById(R.id.spinner);
+        textHasil = (TextView) findViewById(R.id.txtHasil);
+        LokasiAset = (EditText) findViewById(R.id.editText3);
+        Keterangan = (EditText) findViewById(R.id.editText4);
         mContext = this;
         geocoderReceiver = new GeocoderResultReceiver(new Handler());
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        textHasil = (TextView) findViewById(R.id.txtHasil);
-        tvw = (TextView) findViewById(R.id.txtHasil1);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
-                MINIMUM_TIME_BETWEEN_UPDATES,
-                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-                new MyLocationListener());
-    }
 
-    protected void startIntentService() {
-        // Membuat intent yang mengarah ke IntentService untuk proses reverse geocoding
-        Intent intent = new Intent(this, GeocoderIntentService.class);
-
-        // Mengirim ResultReceiver sebagai extra ke intent service.
-        intent.putExtra(Constants.RECEIVER, geocoderReceiver);
-
-        // Mengirim location data sebagai extra juga ke intent service.
-        intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLastLocation);
-
-        // Start the service. If the service isn't already running, it is instantiated and started
-        // (creating a process for it if needed); if it is running then it remains running. The
-        // service kills itself automatically once all intents are processed.
-        // tl;dr = menyalakan intent service :)
-        startService(intent);
-    }
-
-    private class MyLocationListener implements LocationListener {
-        public void onLocationChanged(Location location) {
-            String Long = String.valueOf(location.getLongitude());
-            String Lat = String.valueOf(location.getLatitude());
-            String msg = "Latitude : " + Lat + "  |  Longitude : " + Long;
-            latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            textHasil.setText(msg);
-            tvw.setText(msg);
-
-            if (latLng!= null){
-                Log.d(TAG, "onLocationChanged: "+latLng.latitude + " "+latLng.longitude);
-                geoCoder(latLng);
-            }
-        }
-
-        public void onStatusChanged(String s, int i, Bundle b) {
-
-        }
-
-        public void onProviderEnabled(String s) {
-            Toast.makeText(PerbaruiMutasiActivity.this,
-                    "Penyedia diaktifkan oleh pengguna. GPS dihidupkan",
-                    Toast.LENGTH_LONG).show();
-        }
-
-        public void onProviderDisabled(String s) {
-            Toast.makeText(PerbaruiMutasiActivity.this,
-                    "Penyedia dinonaktifkan oleh pengguna. GPS dimatikan",
-                    Toast.LENGTH_LONG).show();
-        }   {
-            functionDatePicker();
-        }
-    }
-    private void functionDatePicker() {
-        eText = (EditText) findViewById(R.id.editText2);
-        eText.setInputType(InputType.TYPE_NULL);
-        eText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar cldr = Calendar.getInstance();
-                int day = cldr.get(Calendar.DAY_OF_MONTH);
-                int month = cldr.get(Calendar.MONTH);
-                int year = cldr.get(Calendar.YEAR);
-                // Dialog pemilih tanggal
-                picker = new DatePickerDialog(PerbaruiMutasiActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                eText.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                            }
-                        }, year, month, day);
-                picker.show();
-            }
-        });
+//        HashMap<String, String> pasien = sessionManager.getUserDetails();
+//        kodeaset = pasien.get(sessionManager.KODE_ASET);
+//        namaaset = pasien.get(sessionManager.NAMA_ASET);
+        inputData();
 
         imageView = (CircleImageView) findViewById(R.id.myPict);
-        button3 = (Button) findViewById(R.id.button3);
-        button3.setOnClickListener(new View.OnClickListener() {
+        Foto = (Button) findViewById(R.id.button);
+        Foto.setOnClickListener(new View.OnClickListener() {
+
+            @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(PerbaruiMutasiActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(PerbaruiMutasiActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
@@ -202,9 +167,9 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
                                         try {
                                             photoFile = createImageFile();
                                         } catch (IOException ex) {
-                                            // Error occurred while creating the File
+                                            // Terjadi kesalahan saat membuat File
                                         }
-                                        // Continue only if the File was successfully created
+                                        // Lanjutkan hanya jika File berhasil dibuat
                                         if (photoFile != null) {
                                             Uri photoURI = FileProvider.getUriForFile(PerbaruiMutasiActivity.this,
                                                     "com.example.android.path",
@@ -244,6 +209,75 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Simpan = (Button) findViewById(R.id.btnSimpan);
+        Simpan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSimpan();
+            }
+        });
+
+        Batal = (Button) findViewById(R.id.btnBatal);
+        Batal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PerbaruiMutasiActivity.this, DetailAsetActivity.class);
+                finish();
+            }
+        });
+
+        Simpan = (Button) findViewById(R.id.btnSimpan);
+        Simpan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSimpan();
+            }
+        });
+
+        Batal = (Button) findViewById(R.id.btnBatal);
+        Batal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PerbaruiMutasiActivity.this, DetailAsetActivity.class);
+                finish();
+            }
+        });
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                MINIMUM_TIME_BETWEEN_UPDATES,
+                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                new MyLocationListener());
+
+        functionDatePicker();
+    }
+
+    private void functionDatePicker() {
+        eText = (EditText) findViewById(R.id.editText2);
+        eText.setInputType(InputType.TYPE_NULL);
+        eText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // Dialog pemilih tanggal
+                picker = new DatePickerDialog(PerbaruiMutasiActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                eText.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
     }
 
     private File createImageFile() throws IOException {
@@ -260,37 +294,6 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
         // Simpan file: jalur untuk digunakan dengan maksud ACTION_VIEW
         currentPhotoPath = image.getAbsolutePath();
         return image;
-    }
-
-    private void geoCoder(final LatLng latLng){
-        Log.d(TAG, "geoCoder: run geocoder");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Geocoder geocoder = new Geocoder(PerbaruiMutasiActivity.this, Locale.getDefault());
-                    final List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
-                    PerbaruiMutasiActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!addresses.isEmpty()) {
-                                if (addresses.size() > 0) {
-                                    // Alamat
-                                    String address = addresses.get(0).getAddressLine(0);
-                                    Log.d(TAG, "run: "+address);
-                                    // setText ke Edit text
-                                    tvw.setText(address);
-                                }
-                            } else {
-//                                editText.setText(R.string.text_addressNotAvailable);
-                            }
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 
     @Override
@@ -363,6 +366,86 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
         }
     }
 
+    protected void startIntentService() {
+        // Membuat intent yang mengarah ke IntentService untuk proses reverse geocoding
+        Intent intent = new Intent(this, GeocoderIntentService.class);
+
+        // Mengirim ResultReceiver sebagai extra ke intent service.
+        intent.putExtra(Constants.RECEIVER, geocoderReceiver);
+
+        // Mengirim location data sebagai extra juga ke intent service.
+        intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLastLocation);
+
+        // Start the service. If the service isn't already running, it is instantiated and started
+        // (creating a process for it if needed); if it is running then it remains running. The
+        // service kills itself automatically once all intents are processed.
+        // tl;dr = menyalakan intent service :)
+        startService(intent);
+    }
+
+    private class MyLocationListener implements LocationListener {
+        public void onLocationChanged(Location location) {
+            String Long = String.valueOf(location.getLongitude());
+            String Lat = String.valueOf(location.getLatitude());
+            String msg = "Latitude : " + Lat + "  |  Longitude : " + Long;
+            latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            textHasil.setText(msg);
+            LokasiAset.setText(msg);
+
+            if (latLng != null) {
+                Log.d(TAG, "onLocationChanged: " + latLng.latitude + " " + latLng.longitude);
+                geoCoder(latLng);
+            }
+        }
+
+        public void onStatusChanged(String s, int i, Bundle b) {
+
+        }
+
+        public void onProviderEnabled(String s) {
+            Toast.makeText(PerbaruiMutasiActivity.this,
+                    "Penyedia diaktifkan oleh pengguna. GPS dihidupkan",
+                    Toast.LENGTH_LONG).show();
+        }
+
+        public void onProviderDisabled(String s) {
+            Toast.makeText(PerbaruiMutasiActivity.this,
+                    "Penyedia dinonaktifkan oleh pengguna. GPS dimatikan",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void geoCoder(final LatLng latLng){
+        Log.d(TAG, "geoCoder: run geocoder");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Geocoder geocoder = new Geocoder(PerbaruiMutasiActivity.this, Locale.getDefault());
+                    final List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+                    PerbaruiMutasiActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!addresses.isEmpty()) {
+                                if (addresses.size() > 0) {
+                                    // Alamat
+                                    String address = addresses.get(0).getAddressLine(0);
+                                    Log.d(TAG, "run: "+address);
+                                    // setText ke Edit text
+                                    LokasiAset.setText(address);
+                                }
+                            } else {
+//                                editText.setText(R.string.text_addressNotAvailable);
+                            }
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
 //    @Override
 //    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 //        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -377,9 +460,30 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
 //        }
 //    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_item, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.item1) {
+            startActivity(new Intent(this, HomeActivity.class));
+        } else if (item.getItemId() == R.id.item2) {
+            startActivity(new Intent(this, LoginActivity.class));
+        } else if (item.getItemId() == R.id.item3) {
+            startActivity(new Intent(this, ProfilActivity.class));
+        }
+        return true;
+    }
+
+    @Override
     protected void onResume(){
         super.onResume();
         isLocationEnabled();
+        inputData();
     }
     private void isLocationEnabled() {
 
@@ -401,9 +505,91 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
             AlertDialog alert=alertDialog.create();
             alert.show();
         }
-        else{
+    }
 
-        }
+    private void inputData() {
+        String URL = "http://10.252.14.236/aset/public/aset/test?id="+kode_aset;
+        JsonArrayRequest stringRequest = new JsonArrayRequest(Request.Method.GET,URL,null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    // Ambil data JSON
+                    for (int i=0; i <response.length(); i++) {
+                        JSONObject data = response.getJSONObject(i);
+
+                        KodeAset.setText(data.getString("kode_aset"));
+                        NamaAset.setText(data.getString("nama"));
+                        if (data.getString("id_kondisi").equals("Baik")) {
+                            KondisiAset.setSelection(0);
+                        }
+                        else if (data.getString("id_kondisi").equals("Rusak Ringan")) {
+                            KondisiAset.setSelection(1);
+                        }
+                        else if (data.getString("id_kondisi").equals("Rusak Berat")) {
+                            KondisiAset.setSelection(2);
+                        }
+                        else if (data.getString("id_kondisi").equals("Barang Tidak Ada")) {
+                            KondisiAset.setSelection(3);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(PerbaruiMutasiActivity.this, "Terjadi kesalahan " + error.toString(),
+//                        Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void addSimpan() {
+        String URL_MUTASI = "http://10.252.14.236/aset/public/aset/mutasi/"+id_aset;
+        StringRequest stringRequest = new StringRequest(StringRequest.Method.POST, URL_MUTASI, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(PerbaruiMutasiActivity.this, "Berhasil memperbarui mutasi",
+                        Toast.LENGTH_SHORT).show();
+            }
+        },new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError e) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("foto", foto);
+                params.put("kode_aset", KodeAset.getText().toString());
+                params.put("nama", NamaAset.getText().toString());
+                params.put("tanggal", TglPerbarui.getText().toString());
+                if (KondisiAset.getSelectedItem().equals("Baik")) {
+                    params.put("id_kondisi", "1");
+                }
+                if (KondisiAset.getSelectedItem().equals("Rusak Ringan")) {
+                    params.put("id_kondisi", "2");
+                }
+                if (KondisiAset.getSelectedItem().equals("Rusak Berat")) {
+                    params.put("id_kondisi", "3");
+                }
+                if (KondisiAset.getSelectedItem().equals("Barang Tidak Ada")) {
+                    params.put("id_kondisi", "4");
+                }
+                params.put("id_kondisi", KondisiAset.getSelectedItem().toString());
+                params.put("id_lokasi", LokasiAset.getText().toString());
+                params.put("keterangan", Keterangan.getText().toString());
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }
 
