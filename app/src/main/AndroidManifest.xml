@@ -19,14 +19,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".Service.SplashActivity"
             android:theme="@style/AppFullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -37,30 +38,50 @@
             android:name=".Controllers.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".DataAsetActivity"
+        <activity
+            android:name=".DataAsetActivity"
             android:label="@string/main_activity_melihatdataaset" />
-        <activity android:name=".PencarianLokasiActivity"
+        <activity
+            android:name=".PencarianLokasiActivity"
             android:label="@string/main_activity_pencarianlokasi" />
-        <activity android:name=".TanggapanPencarianActivity"
+        <activity
+            android:name=".TanggapanPencarianActivity"
             android:label="@string/main_activity_tanggapanpencarian" />
-        <activity android:name=".DetailPencarianActivity" />
-        <activity android:name=".ScannerActivity"
+        <activity
+            android:name=".DetailPencarianActivity"
+            android:label="@string/main_activity_detailpencarian" />
+        <activity
+            android:name=".ScannerActivity"
             android:label="@string/main_activity_pindaiqrcode" />
-        <activity android:name=".DetailAsetActivity"
-            android:label="@string/main_activity_detailaset"/>
-        <activity android:name=".PerbaruiKondisiActivity"
+        <activity
+            android:name=".DetailAsetActivity"
+            android:label="@string/main_activity_detailaset" />
+        <activity
+            android:name=".DetailTanahActivity"
+            android:label="@string/main_activity_detailaset" />
+        <activity
+            android:name=".PerbaruiKondisiActivity"
             android:label="@string/main_activity_perbaruikondisi" />
-        <activity android:name=".PerbaruiMutasiActivity"
+        <activity
+            android:name=".PerbaruiMutasiActivity"
             android:label="@string/main_activity_perbaruimutasi" />
-        <activity android:name=".ProfilActivity"
+        <activity
+            android:name=".PerbaruiTanahActivity"
+            android:label="@string/main_activity_perbaruiasettanah" />
+        <activity
+            android:name=".ProfilActivity"
             android:label="@string/main_activity_profil" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
+
         <service
             android:name=".Service.MyLocationService"
             android:process=":mylocation_service" />
-        <service android:name=".Service.GeocoderIntentService" android:exported="false" />
+        <service
+            android:name=".Service.GeocoderIntentService"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

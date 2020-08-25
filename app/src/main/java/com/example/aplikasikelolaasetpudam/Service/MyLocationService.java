@@ -17,8 +17,8 @@ public class MyLocationService extends Service {
 
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1;
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000;
-    protected LocationManager locationManager;
     public static boolean isRunning = false;
+    protected LocationManager locationManager;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -34,37 +34,41 @@ public class MyLocationService extends Service {
     @Override
     public void onCreate() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         try {
             locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    MINIMUM_TIME_BETWEEN_UPDATES,
-                    MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-                    new MyLocationService.MyLocationListener()
+                LocationManager.GPS_PROVIDER,
+                MINIMUM_TIME_BETWEEN_UPDATES,
+                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                new MyLocationService.MyLocationListener()
             );
+        } catch (Exception e) {
         }
-        catch (Exception e){}
 
     }
 
     private class MyLocationListener implements LocationListener {
 
         public void onLocationChanged(Location location) {
-            String Long =String.valueOf(location.getLongitude());
-            String Lat =String.valueOf(location.getLatitude());
+            String Long = String.valueOf(location.getLongitude());
+            String Lat = String.valueOf(location.getLatitude());
         }
-        public void onStatusChanged(String s, int i, Bundle b) { }
+
+        public void onStatusChanged(String s, int i, Bundle b) {
+        }
+
         public void onProviderDisabled(String s) {
             Toast.makeText(MyLocationService.this,
-                    "Provider disabled by the user. GPS turned off",
-                    Toast.LENGTH_LONG).show();
+                "Provider disabled by the user. GPS turned off",
+                Toast.LENGTH_LONG).show();
         }
+
         public void onProviderEnabled(String s) {
             Toast.makeText(MyLocationService.this,
-                    "Provider enabled by the user. GPS turned on",
-                    Toast.LENGTH_LONG).show();
+                "Provider enabled by the user. GPS turned on",
+                Toast.LENGTH_LONG).show();
         }
     }
 }

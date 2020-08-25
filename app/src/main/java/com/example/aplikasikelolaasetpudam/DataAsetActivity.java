@@ -1,113 +1,119 @@
 package com.example.aplikasikelolaasetpudam;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.aplikasikelolaasetpudam.Adapter.MyAdapter;
+import com.example.aplikasikelolaasetpudam.Config.Server;
 import com.example.aplikasikelolaasetpudam.Controllers.LoginActivity;
+import com.example.aplikasikelolaasetpudam.Model.ModelAset;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataAsetActivity extends AppCompatActivity {
 
-    ListView listView;
-    String mKode[] = {"Kode Aset", "Kode Aset"};
-    String mNama[] = {"Nama Aset", "Nama Aset"};
-    String mStatus[] = {"Status Aset", "Status Aset"};
-    String mLokasi[] = {"Lokasi Aset", "Lokasi Aset"};
-    int images[] = {R.mipmap.ic_launcher, R.mipmap.ic_launcher_round};
+    ArrayList<ModelAset> arraylistModelAset;
+    //    private TextView KodeAset, NamaAset, KondisiAset, StatusAset, Lokasi;
+//    String id_aset = "";
+//    String kode_aset = "";
+//    private final String URL = "http://192.168.43.134/aset/public/aset/test?id="+kode_aset;
+    private JsonArrayRequest request;
+    private RequestQueue requestQueue;
+    private RecyclerView recyclerView;
+    private MyAdapter adapter;
+    private List<ModelAset> mData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_aset);
 
-        listView = findViewById(R.id.listView);
+        mData = new ArrayList<>();
+        arraylistModelAset = new ArrayList<>();
+        recyclerView = findViewById(R.id.recyclerView1);
+        adapter = new MyAdapter(this, mData);
+        recyclerView.setAdapter(adapter);
 
-        MyAdapter adapter = new MyAdapter(this, mKode, mNama, mStatus, mLokasi, images);
-        listView.setAdapter(adapter);
+        EditText editText = findViewById(R.id.action_search);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (position == 0) {
-//                    Intent intent = new Intent(getApplicationContext(), DetailPencarianActivity.class);
-//
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt("image", images[0]);
-//                    intent.putExtras(bundle);
-//
-//                    intent.putExtra("kode", mKode[0]);
-//                    intent.putExtra("nama", mNama[0]);
-//                    intent.putExtra("status", mStatus[0]);
-//                    intent.putExtra("lokasi", mLokasi[0]);
-//
-//                    intent.putExtra("position", ""+0);
-//                    startActivity(intent);
-//
-//                }
-//            }
-//        });
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
+
+        inputData();
+
     }
 
-    class MyAdapter extends ArrayAdapter<String> {
-        Context context;
-        String nKode[];
-        String nNama[];
-        String nStatus[];
-        String nLokasi[];
-        int nImages[];
+    private void filter(String text) {
+        ArrayList<ModelAset> filteredList = new ArrayList<>();
 
-        MyAdapter (Context c, String kode[], String nama[], String status[], String lokasi[], int images[]) {
-            super(c, R.layout.data_aset, R.id.textView, kode);
-            this.context = c;
-            this.nKode = kode;
-            this.nNama = nama;
-            this.nStatus = status;
-            this.nLokasi = lokasi;
-            this.nImages = images;
+        for (ModelAset data : mData) {
+            if (data.getNama().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(data);
+            }
         }
 
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View data_aset = layoutInflater.inflate(R.layout.data_aset, parent, false);
-            ImageView images = data_aset.findViewById(R.id.imageView);
-            TextView myKode = data_aset.findViewById(R.id.textView);
-            TextView myNama = data_aset.findViewById(R.id.textView1);
-            TextView myStatus = data_aset.findViewById(R.id.textView2);
-            TextView myLokasi = data_aset.findViewById(R.id.textView3);
-
-            images.setImageResource(nImages[position]);
-            myKode.setText(nKode[position]);
-            myNama.setText(nNama[position]);
-            myStatus.setText(nStatus[position]);
-            myLokasi.setText(nLokasi[position]);
-
-            return data_aset;
-        }
+        adapter.filterList(filteredList);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
         return true;
     }
 
@@ -124,13 +130,63 @@ public class DataAsetActivity extends AppCompatActivity {
     }
 
 //    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        View view = super.getView(position, convertView, parent);
-//        if (position % 2 == 1) {
-//            view.setBackgroundColor(Color.BLUE);
-//        } else {
-//            view.setBackgroundColor(Color.CYAN);
-//        }
-//        return view;
+//    protected void onResume() {
+//        super.onResume();
+//        inputData();
 //    }
+
+    private void inputData() {
+//        String URL_JSON = "http://192.168.43.134/aset/public/aset/aset";
+        String URL_JSON = Server.API_URL + "get-aset-list";
+        Log.e("GET ASET",URL_JSON);
+        request = new JsonArrayRequest(URL_JSON, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                        ModelAset modelAset = new ModelAset();
+                        modelAset.setImage_url(jsonObject.getString("foto"));
+                        modelAset.setKode(jsonObject.getString("kode_aset"));
+                        modelAset.setNama(jsonObject.getString("nama"));
+                        modelAset.setSatuan(jsonObject.getString("id_satuan"));
+                        modelAset.setVolume(jsonObject.getString("volume"));
+                        modelAset.setHarga(jsonObject.getInt("harga_perolehan"));
+                        modelAset.setTahun(jsonObject.getInt("tahun_perolehan"));
+                        modelAset.setSumberdana(jsonObject.getString("id_sumberdana"));
+                        modelAset.setTarif(jsonObject.getInt("tarif"));
+                        modelAset.setGolongan(jsonObject.getString("id_golongan"));
+                        modelAset.setKondisi(jsonObject.getString("id_kondisi"));
+//                        modelAset.setStatus(jsonObject.getString("id_status"));
+                        modelAset.setLokasi(jsonObject.getString("id_lokasi"));
+                        modelAset.setKeterangan(jsonObject.getString("keterangan"));
+                        modelAset.setImage_url(jsonObject.getString("foto"));
+                        arraylistModelAset.add(modelAset);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                setuprecyclerview(arraylistModelAset);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(DataAsetActivity.this, "Terjadi kesalahan " + error.toString(),
+//                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(request);
+    }
+
+    private void setuprecyclerview(ArrayList<ModelAset> asetArrayList) {
+        MyAdapter adapter = new MyAdapter(this, asetArrayList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+    }
 }

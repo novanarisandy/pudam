@@ -26,7 +26,7 @@ public class Check {
     }
 
     public static Bitmap handleSamplingAndRotationBitmap(Context context, Uri selectedImage)
-            throws IOException {
+        throws IOException {
         int MAX_HEIGHT = 1024;
         int MAX_WIDTH = 1024;
 
@@ -83,7 +83,7 @@ public class Check {
         return inSampleSize;
     }
 
-    private static Bitmap rotateImageI(String photoPath,Bitmap bitmap) {
+    private static Bitmap rotateImageI(String photoPath, Bitmap bitmap) {
         ExifInterface ei = null;
         try {
             ei = new ExifInterface(photoPath);
@@ -91,10 +91,10 @@ public class Check {
             e.printStackTrace();
         }
         int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-                ExifInterface.ORIENTATION_UNDEFINED);
+            ExifInterface.ORIENTATION_UNDEFINED);
 
         Bitmap rotatedBitmap = null;
-        switch(orientation) {
+        switch (orientation) {
 
             case ExifInterface.ORIENTATION_ROTATE_90:
                 rotatedBitmap = rotateImage2(bitmap, 90);
@@ -119,7 +119,7 @@ public class Check {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
-                matrix, true);
+            matrix, true);
     }
 
     private static Bitmap rotateImageIfRequired(Context context, Bitmap img, Uri selectedImage) throws IOException {
@@ -133,7 +133,7 @@ public class Check {
 
         int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 
-        Log.d("orientation",""+orientation);
+        Log.d("orientation", "" + orientation);
 
         switch (orientation) {
             case ExifInterface.ORIENTATION_ROTATE_90:

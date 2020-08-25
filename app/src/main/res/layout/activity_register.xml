@@ -49,8 +49,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
-                    android:text="REGISTER"
                     android:gravity="center"
+                    android:text="REGISTER"
                     android:textSize="25sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -222,10 +222,10 @@
 
             <ProgressBar
                 android:id="@+id/loading"
-                android:layout_marginTop="30dp"
-                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"

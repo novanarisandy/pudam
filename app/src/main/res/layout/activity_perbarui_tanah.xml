@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PerbaruiKondisiActivity">
+    tools:context=".PerbaruiTanahActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -183,7 +183,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="15dp"
-                    android:visibility="gone"
                     android:orientation="vertical"></LinearLayout>
 
                 <LinearLayout
@@ -197,7 +196,6 @@
                         android:layout_weight="1" />
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -209,24 +207,20 @@
                     <Space
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
                         android:layout_weight="27" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <Space
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
                     <EditText
-                        android:visibility="gone"
                         android:id="@+id/editText2"
                         android:layout_width="378dp"
                         android:layout_height="30dp"
@@ -260,7 +254,7 @@
                         android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kondisi Aset"
+                        android:text="Status"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -287,7 +281,7 @@
                         android:layout_height="30dp"
                         android:background="@drawable/border"
                         android:drawableRight="@drawable/ic_arrow_drop_down_black"
-                        android:entries="@array/data_kondisi"
+                        android:entries="@array/data_status"
                         android:spinnerMode="dropdown" />
 
                     <Space
@@ -315,60 +309,6 @@
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lokasi Aset"
-                        android:textColor="@android:color/black"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="50" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <EditText
-                        android:id="@+id/editText3"
-                        android:layout_width="378dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/border"
-                        android:ems="10"
-                        android:inputType="textMultiLine" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp"
-                    android:orientation="vertical"></LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:drawableRight="@drawable/ic_pin_drop_black"
                         android:text="Alamat"
                         android:textColor="@android:color/black"
@@ -394,7 +334,7 @@
                         android:paddingLeft="13dp" />
 
                     <EditText
-                        android:id="@+id/editText4"
+                        android:id="@+id/editText3"
                         android:layout_width="378dp"
                         android:layout_height="75dp"
                         android:layout_marginLeft="8dp"
@@ -419,7 +359,7 @@
                         android:layout_weight="1" />
 
                     <TextView
-                        android:id="@+id/textView7"
+                        android:id="@+id/textView8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Keterangan"
@@ -444,7 +384,7 @@
                         android:layout_weight="1" />
 
                     <EditText
-                        android:id="@+id/editText5"
+                        android:id="@+id/editText4"
                         android:layout_width="378dp"
                         android:layout_height="30dp"
                         android:background="@drawable/border"

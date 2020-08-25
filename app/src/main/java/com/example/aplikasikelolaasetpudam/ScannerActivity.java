@@ -1,12 +1,10 @@
 package com.example.aplikasikelolaasetpudam;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 
@@ -17,9 +15,9 @@ import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class ScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
-    private ZXingScannerView mScannerView;
     LayoutInflater inflater;
     Context mContext;
+    private ZXingScannerView mScannerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +44,20 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         Log.v("TAG", rawResult.getText()); // Mencetak hasil scanner
         Log.v("TAG", rawResult.getBarcodeFormat().toString());
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        startActivity(new Intent(ScannerActivity.this, ProfilActivity.class));
+//        Intent intent = new Intent( ScannerActivity.this, DetailAsetActivity.class );
+//            startActivity( intent );
+//            ScannerActivity.this.finish();
         builder.setTitle("Hasil Scanner");
         builder.setMessage(rawResult.getText());
-        builder.setPositiveButton("Kelola", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int which){
-                Intent intent=new Intent(ScannerActivity.this, DetailAsetActivity.class);
+        builder.setPositiveButton("Kelola", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(ScannerActivity.this, DetailAsetActivity.class);
                 intent.putExtra("kode", rawResult.getText());
                 startActivity(intent);
             }
         });
-        builder.setNegativeButton("Batal", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int which){
+        builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
@@ -66,6 +66,8 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
         mScannerView.resumeCameraPreview(this);
     }
+
+
 }
 
 

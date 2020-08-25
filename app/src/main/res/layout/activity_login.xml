@@ -50,8 +50,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
-                    android:text="LOGIN"
                     android:gravity="center"
+                    android:text="LOGIN"
                     android:textSize="25sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -123,10 +123,10 @@
 
             <ProgressBar
                 android:id="@+id/loading"
-                android:layout_marginTop="30dp"
-                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -175,8 +175,8 @@
                     android:layout_width="155dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="belum memiliki akun? klik"
                     android:gravity="center"
+                    android:text="belum memiliki akun? klik"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
 

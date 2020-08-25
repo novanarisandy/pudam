@@ -1,7 +1,6 @@
 package com.example.aplikasikelolaasetpudam;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -36,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -49,9 +49,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.aplikasikelolaasetpudam.Config.Server;
 import com.example.aplikasikelolaasetpudam.Controllers.LoginActivity;
 import com.example.aplikasikelolaasetpudam.Controllers.SessionManager;
@@ -78,11 +75,11 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class PerbaruiMutasiActivity extends AppCompatActivity {
+public class PerbaruiTanahActivity extends AppCompatActivity {
 
-    //    private final String URL = "http://192.168.43.134/aset/public/aset/test?id="+kode_aset;
-//    private final String URL_MUTASI = "http://192.168.43.134/aset/public/aset/aset/"+id_aset;
-    private static final String TAG = "PerbaruiMutasiActivity";
+    //    private final String URL = "http://10.252.22.110/aset/public/aset/test?id="+kode_aset;
+//    private final String URL_KONDISI = "http://10.252.22.110/aset/public/aset/aset/"+id_aset;
+    private static final String TAG = "PerbaruiTanahActivity";
     private static final int CAMERA_REQUEST = 1;
     private static final int SELECT_FILE = 2;
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1;
@@ -90,7 +87,7 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
     public File camera = null;
     //    MyLocationService mService;
     protected LocationManager locationManager;
-    Spinner KondisiAset;
+    Spinner StatusAset;
     String foto = "";
     String id_aset = "";
     String kode_aset = "";
@@ -99,28 +96,26 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
     CircleImageView imageView;
     Button Foto;
     String currentPhotoPath;
-    // Memperbarui Tanggal
+    // Perbarui Tanggal
     DatePickerDialog picker;
     EditText eText;
     // Memperbarui Lokasi
     Context mContext;
-    private EditText KodeAset, NamaAset, TglPerbarui, LokasiAsal, LokasiTujuan, Alamat, Keterangan;
+    private EditText KodeAset, NamaAset, TglPerbarui, Alamat, Keterangan;
     private TextView textHasil;
     private Button Simpan, Batal;
     private ProgressBar Loading;
     private GeocoderResultReceiver geocoderReceiver;
     private boolean mLastLocation;
     private LatLng latLng;
-    private String longitude;
-    private String latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perbarui_mutasi);
+        setContentView(R.layout.activity_perbarui_tanah);
 
-        id_aset = getIntent().getStringExtra("id_asets");
-        kode_aset = getIntent().getStringExtra("kode_asets");
+        id_aset = getIntent().getStringExtra("id_aset");
+        kode_aset = getIntent().getStringExtra("kode_aset");
         sessionManager = new SessionManager(getApplicationContext());
 
         Loading = (ProgressBar) findViewById(R.id.loading);
@@ -129,12 +124,10 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
         NamaAset = (EditText) findViewById(R.id.editText1);
         NamaAset.setEnabled(false);
         TglPerbarui = (EditText) findViewById(R.id.editText2);
-        KondisiAset = (Spinner) findViewById(R.id.spinner);
-        LokasiAsal = (EditText) findViewById(R.id.editText3);
-        LokasiTujuan = (EditText) findViewById(R.id.editText4);
+        StatusAset = (Spinner) findViewById(R.id.spinner);
         textHasil = (TextView) findViewById(R.id.txtHasil);
-        Alamat = (EditText) findViewById(R.id.editText5);
-        Keterangan = (EditText) findViewById(R.id.editText6);
+        Alamat = (EditText) findViewById(R.id.editText3);
+        Keterangan = (EditText) findViewById(R.id.editText4);
         mContext = this;
         geocoderReceiver = new GeocoderResultReceiver(new Handler());
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -150,13 +143,13 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(PerbaruiMutasiActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(PerbaruiMutasiActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
+                if (ContextCompat.checkSelfPermission(PerbaruiTanahActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(PerbaruiTanahActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
 
                 } else {
                     CharSequence options[] = new CharSequence[]{"Kamera", "Galeri"};
 
-                    final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PerbaruiMutasiActivity.this);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(PerbaruiTanahActivity.this);
 
                     builder.setTitle("Foto aset");
                     builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -175,7 +168,7 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
                                         }
                                         // Lanjutkan hanya jika File berhasil dibuat
                                         if (photoFile != null) {
-                                            Uri photoURI = FileProvider.getUriForFile(PerbaruiMutasiActivity.this,
+                                            Uri photoURI = FileProvider.getUriForFile(PerbaruiTanahActivity.this,
                                                 "com.example.android.path",
                                                 photoFile);
                                             takePictureIntent.putExtra(MediaStore.ACTION_IMAGE_CAPTURE, photoURI);
@@ -184,7 +177,7 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
                                         }
                                     }
                                 } catch (ActivityNotFoundException ex) {
-                                    Toast.makeText(PerbaruiMutasiActivity.this, "Gagal membuka Kamera", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(PerbaruiTanahActivity.this, "Gagal membuka Kamera", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -203,7 +196,7 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
                                     try {
                                         startActivityForResult(pickPhoto, SELECT_FILE);//
                                     } catch (ActivityNotFoundException ex) {
-                                        Toast.makeText(PerbaruiMutasiActivity.this, "Gagal membuka Galeri", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(PerbaruiTanahActivity.this, "Gagal membuka Galeri", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
@@ -218,7 +211,7 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
         Simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PerbaruiMutasiActivity.this, DetailAsetActivity.class);
+                Intent intent = new Intent(PerbaruiTanahActivity.this, DetailAsetActivity.class);
                 addSimpan();
                 finish();
             }
@@ -228,24 +221,7 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
         Batal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PerbaruiMutasiActivity.this, DetailAsetActivity.class);
-                finish();
-            }
-        });
-
-        Simpan = (Button) findViewById(R.id.btnSimpan);
-        Simpan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addSimpan();
-            }
-        });
-
-        Batal = (Button) findViewById(R.id.btnBatal);
-        Batal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PerbaruiMutasiActivity.this, DetailAsetActivity.class);
+                Intent intent = new Intent(PerbaruiTanahActivity.this, DetailAsetActivity.class);
                 finish();
             }
         });
@@ -274,7 +250,7 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
                 int month = cldr.get(Calendar.MONTH);
                 int year = cldr.get(Calendar.YEAR);
                 // Dialog pemilih tanggal
-                picker = new DatePickerDialog(PerbaruiMutasiActivity.this,
+                picker = new DatePickerDialog(PerbaruiTanahActivity.this,
                     new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -311,14 +287,6 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
                     Bitmap bitmap = null;
                     try {
                         Bitmap photo = (Bitmap) data.getExtras().get("data");
-
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-                        photo.compress(Bitmap.CompressFormat.JPEG, 60, baos);
-                        byte[] thumb_byte = baos.toByteArray();
-                        foto = Base64.encodeToString(thumb_byte, Base64.DEFAULT);
-
-                        Log.e("Foto",foto);
                         imageView.setImageBitmap(photo);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -326,12 +294,9 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
 
                     if (bitmap != null) {
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 60, baos);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 30, baos);
                         byte[] thumb_byte = baos.toByteArray();
                         foto = Base64.encodeToString(thumb_byte, Base64.DEFAULT);
-
-                        Log.e("Foto",foto);
-
                         File f = new File(currentPhotoPath);
                         try {
                             f.createNewFile();
@@ -356,7 +321,7 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
 
                     try {
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        Bitmap gambar = Check.handleSamplingAndRotationBitmap(PerbaruiMutasiActivity.this, imageUri);
+                        Bitmap gambar = Check.handleSamplingAndRotationBitmap(PerbaruiTanahActivity.this, imageUri);
                         gambar.compress(Bitmap.CompressFormat.JPEG, 30, baos);
                         byte[] thumb_byte = baos.toByteArray();
                         File f = new File(currentPhotoPath);
@@ -406,9 +371,9 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Geocoder geocoder = new Geocoder(PerbaruiMutasiActivity.this, Locale.getDefault());
+                    Geocoder geocoder = new Geocoder(PerbaruiTanahActivity.this, Locale.getDefault());
                     final List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
-                    PerbaruiMutasiActivity.this.runOnUiThread(new Runnable() {
+                    PerbaruiTanahActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             if (!addresses.isEmpty()) {
@@ -434,7 +399,7 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
     private void isLocationEnabled() {
 
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(mContext);
             alertDialog.setTitle("Aktifkan Lokasi");
             alertDialog.setMessage("Pengaturan lokasi Anda tidak diaktifkan, silahkan aktifkan di menu pengaturan.");
             alertDialog.setPositiveButton("Pengaturan Lokasi", new DialogInterface.OnClickListener() {
@@ -448,7 +413,7 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
                     dialog.cancel();
                 }
             });
-            AlertDialog alert = alertDialog.create();
+            android.app.AlertDialog alert = alertDialog.create();
             alert.show();
         }
     }
@@ -476,12 +441,14 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         isLocationEnabled();
-        //inputData();
+        inputData();
     }
 
     private void inputData() {
+//        String URL = "http://192.168.3.7/aset/public/aset/test?id=" + kode_aset;
 //        String URL = "http://192.168.43.134/aset/public/aset/test?id=" + kode_aset;
-        String URL = Server.API_URL + "get-aset-detail/" + kode_aset;
+        String URL = Server.API_URL + "get-aset-detail?aset_id=" + kode_aset;
+
         JsonArrayRequest stringRequest = new JsonArrayRequest(Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -492,24 +459,17 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
 
                         KodeAset.setText(data.getString("kode_aset"));
                         NamaAset.setText(data.getString("nama"));
-                        if (data.getString("id_kondisi").equals("B")) {
-                            KondisiAset.setSelection(0);
-                        } else if (data.getString("id_kondisi").equals("RR")) {
-                            KondisiAset.setSelection(1);
-                        } else if (data.getString("id_kondisi").equals("RB")) {
-                            KondisiAset.setSelection(2);
-                        } else if (data.getString("id_kondisi").equals("BTA")) {
-                            KondisiAset.setSelection(3);
+                        if (data.getString("id_status").equals("Hak Pakai")) {
+                            StatusAset.setSelection(0);
+                        } else if (data.getString("id_status").equals("Hak Guna Bangunan")) {
+                            StatusAset.setSelection(1);
+                        } else if (data.getString("id_status").equals("Hak Milik")) {
+                            StatusAset.setSelection(2);
+                        } else if (data.getString("id_status").equals("Hak Guna Usaha")) {
+                            StatusAset.setSelection(3);
+                        } else if (data.getString("id_status").equals("Hak Pengelolaan")) {
+                            StatusAset.setSelection(3);
                         }
-                        LokasiAsal.setText(data.getString("id_lokasi"));
-
-                        RequestOptions options;
-                        options = new RequestOptions().centerCrop().placeholder(R.drawable.aset).error(R.drawable.aset);
-                        Glide.with(mContext).load(Server.BASE_URL + data.getString("foto"))
-                            .apply(RequestOptions.skipMemoryCacheOf(true))
-                            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-                            .apply(options).into(imageView);
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -518,7 +478,7 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(PerbaruiMutasiActivity.this, "Terjadi kesalahan " + error.toString(),
+//                Toast.makeText(PerbaruiKondisiActivity.this, "Terjadi kesalahan " + error.toString(),
 //                        Toast.LENGTH_SHORT).show();
             }
         });
@@ -528,12 +488,12 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
     }
 
     private void addSimpan() {
-//        String URL_MUTASI = "http://192.168.43.134/aset/public/aset/mutasi/" + id_aset;
-        String URL_MUTASI = Server.API_URL + "post-aset-mutasi-update/" + id_aset;
-        StringRequest stringRequest = new StringRequest(StringRequest.Method.POST, URL_MUTASI, new Response.Listener<String>() {
+//        String URL_KONDISI = "http://192.168.3.7/aset/public/aset/aset/" + id_aset;
+        String URL_KONDISI = Server.API_URL + "post-aset-update/" + id_aset;
+        StringRequest stringRequest = new StringRequest(StringRequest.Method.POST, URL_KONDISI, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(PerbaruiMutasiActivity.this, "Berhasil memperbarui mutasi",
+                Toast.makeText(PerbaruiTanahActivity.this, "Berhasil memperbarui kondisi",
                     Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
@@ -546,30 +506,26 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("foto", foto);
-//                params.put("kode_aset", KodeAset.getText().toString());
-//                params.put("nama", NamaAset.getText().toString());
-//                params.put("tanggal", TglPerbarui.getText().toString());
-                if (KondisiAset.getSelectedItem().equals("Baik")) {
-                    params.put("kondisi", "B");
+                params.put("kode_aset", KodeAset.getText().toString());
+                params.put("nama", NamaAset.getText().toString());
+                params.put("tanggal", TglPerbarui.getText().toString());
+                if (StatusAset.getSelectedItem().equals("Hak Pakai")) {
+                    params.put("id_status", "1");
                 }
-                if (KondisiAset.getSelectedItem().equals("Rusak Ringan")) {
-                    params.put("kondisi", "RR");
+                if (StatusAset.getSelectedItem().equals("Hak Guna Bangunan")) {
+                    params.put("id_status", "2");
                 }
-                if (KondisiAset.getSelectedItem().equals("Rusak Berat")) {
-                    params.put("kondisi", "RB");
+                if (StatusAset.getSelectedItem().equals("Hak Milik")) {
+                    params.put("id_status", "3");
                 }
-                if (KondisiAset.getSelectedItem().equals("Barang Tidak Ada")) {
-                    params.put("kondisi", "BTA");
+                if (StatusAset.getSelectedItem().equals("Hak Guna Usaha")) {
+                    params.put("id_status", "4");
                 }
-
-//                params.put("id_kondisi", KondisiAset.getSelectedItem().toString());
-//                params.put("lokasi_awal", LokasiAsal.getText().toString());
-
-                params.put("longitude", longitude);
-                params.put("latitude", latitude);
-                params.put("lokasi_awal", LokasiAsal.getText().toString());
-                params.put("lokasi_tujuan", LokasiTujuan.getText().toString());
-                params.put("alamat", Alamat.getText().toString());
+                if (StatusAset.getSelectedItem().equals("Hak Pengelolaan")) {
+                    params.put("id_status", "4");
+                }
+                params.put("id_status", StatusAset.getSelectedItem().toString());
+                params.put("id_lokasi", Alamat.getText().toString());
                 params.put("keterangan", Keterangan.getText().toString());
                 return params;
             }
@@ -588,9 +544,6 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
             textHasil.setText(msg);
             Alamat.setText(msg);
 
-            longitude = Long;
-            latitude = Lat;
-
             if (latLng != null) {
                 Log.d(TAG, "onLocationChanged: " + latLng.latitude + " " + latLng.longitude);
                 geoCoder(latLng);
@@ -602,16 +555,15 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
         }
 
         public void onProviderEnabled(String s) {
-            Toast.makeText(PerbaruiMutasiActivity.this,
+            Toast.makeText(PerbaruiTanahActivity.this,
                 "Penyedia diaktifkan oleh pengguna. GPS dihidupkan",
                 Toast.LENGTH_LONG).show();
         }
 
         public void onProviderDisabled(String s) {
-            Toast.makeText(PerbaruiMutasiActivity.this,
+            Toast.makeText(PerbaruiTanahActivity.this,
                 "Penyedia dinonaktifkan oleh pengguna. GPS dimatikan",
                 Toast.LENGTH_LONG).show();
         }
     }
 }
-

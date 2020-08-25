@@ -60,9 +60,9 @@ public class GeocoderIntentService extends IntentService {
              * Proses reverse geocoding
              */
             addresses = geocoder.getFromLocation(
-                    location.getLatitude(),
-                    location.getLongitude(),
-                    1);
+                location.getLatitude(),
+                location.getLongitude(),
+                1);
         } catch (IOException ioException) {
             // Menangkap apabila ada I/O atau jaringan error
             errorMessage = "Location Service is not available";
@@ -72,12 +72,12 @@ public class GeocoderIntentService extends IntentService {
             // Apabila invalid latitude longitude
             errorMessage = "Invalid latitude longitude";
             Log.e(TAG, errorMessage + ". " +
-                    "Latitude = " + location.getLatitude() +
-                    ", Longitude = " + location.getLongitude(), illegalArgumentException);
+                "Latitude = " + location.getLatitude() +
+                ", Longitude = " + location.getLongitude(), illegalArgumentException);
         }
 
         // Apabila tidak ada alamat yang bisa ditemukan
-        if (addresses == null || addresses.size()  == 0) {
+        if (addresses == null || addresses.size() == 0) {
             if (errorMessage.isEmpty()) {
                 errorMessage = "Alamat tidak ditemukan";
                 Log.e(TAG, errorMessage);
@@ -87,12 +87,12 @@ public class GeocoderIntentService extends IntentService {
             Address address = addresses.get(0);
             ArrayList<String> addressFragments = new ArrayList<>();
 
-            for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+            for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
                 addressFragments.add(address.getAddressLine(i));
             }
             Log.i(TAG, "alamat ditemukan");
             deliverResultToReceiver(Constants.SUCCESS_RESULT,
-                    TextUtils.join(System.getProperty("line.separator"), addressFragments));
+                TextUtils.join(System.getProperty("line.separator"), addressFragments));
         }
     }
 

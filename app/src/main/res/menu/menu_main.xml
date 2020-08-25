@@ -3,21 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/item1"
-        android:title="Home"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/item2"
-        android:title="Login"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/item3"
-        android:title="Profil"
-        app:showAsAction="never" />
-    <item android:id="@+id/action_search"
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_white"
         android:title="Search"
-        android:icon="@drawable/ic_search_black"
-        app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="collapseActionView|always" />
+
+    <group android:menuCategory="container">
+        <item
+            android:id="@+id/item1"
+            android:title="Home"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/item2"
+            android:title="Login"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/item3"
+            android:title="Profil"
+            app:showAsAction="never" />
+    </group>
 
 </menu>

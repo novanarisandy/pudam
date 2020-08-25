@@ -1,13 +1,13 @@
 package com.example.aplikasikelolaasetpudam.Controllers;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -27,11 +27,11 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private static String URL_REGISTER = Server.API_URL + "";
+    SessionManager sessionManager;
     private EditText Nama, Email, Username, Password, c_Password;
     private Button Register;
     private ProgressBar Loading;
-    private static String URL_REGISTER = Server.URL + "";
-    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,27 +88,26 @@ public class RegisterActivity extends AppCompatActivity {
                     String success = jsonObject.getString("Berhasil");
 
                     if (success.equals("1")) {
-                        Toast.makeText(RegisterActivity.this,"Register Berhasil", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Register Berhasil", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(RegisterActivity.this,"Register Gagal " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Register Gagal " + e.toString(), Toast.LENGTH_SHORT).show();
                     Loading.setVisibility(View.GONE);
                     Register.setVisibility(View.VISIBLE);
                 }
             }
         },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(RegisterActivity.this,"Register Gagal " + error.toString(), Toast.LENGTH_SHORT).show();
-                        Loading.setVisibility(View.GONE);
-                        Register.setVisibility(View.VISIBLE);
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(RegisterActivity.this, "Register Gagal " + error.toString(), Toast.LENGTH_SHORT).show();
+                    Loading.setVisibility(View.GONE);
+                    Register.setVisibility(View.VISIBLE);
 
-                    }
-                })
-        {
+                }
+            }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();

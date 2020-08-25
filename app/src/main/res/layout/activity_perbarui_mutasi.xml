@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -201,6 +200,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tanggal Perbarui Aset"
+                        android:visibility="gone"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -226,9 +226,10 @@
                         android:id="@+id/editText2"
                         android:layout_width="378dp"
                         android:layout_height="30dp"
-                        android:drawableRight="@drawable/ic_date_range_black"
                         android:background="@drawable/border"
+                        android:drawableRight="@drawable/ic_date_range_black"
                         android:ems="10"
+                        android:visibility="gone"
                         android:inputType="date" />
 
                     <Space
@@ -240,6 +241,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="15dp"
+                    android:visibility="gone"
                     android:orientation="vertical"></LinearLayout>
 
                 <LinearLayout
@@ -283,7 +285,7 @@
                         android:layout_height="30dp"
                         android:background="@drawable/border"
                         android:drawableRight="@drawable/ic_arrow_drop_down_black"
-                        android:entries="@array/data_spinner"
+                        android:entries="@array/data_kondisi"
                         android:spinnerMode="dropdown" />
 
                     <Space
@@ -311,8 +313,7 @@
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lokasi Aset"
-                        android:drawableRight="@drawable/ic_pin_drop_black"
+                        android:text="Lokasi Asal"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -320,29 +321,31 @@
                     <Space
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="27" />
+                        android:layout_weight="50" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txtHasil"
+                    <Space
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Berbagi lokasi terkini"
-                        android:paddingLeft="13dp" />
+                        android:layout_weight="1" />
 
                     <EditText
                         android:id="@+id/editText3"
                         android:layout_width="378dp"
-                        android:layout_height="75dp"
-                        android:layout_marginLeft="8dp"
+                        android:layout_height="30dp"
                         android:background="@drawable/border"
                         android:ems="10"
                         android:inputType="textMultiLine" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -364,7 +367,7 @@
                         android:id="@+id/textView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Keterangan"
+                        android:text="Lokasi Tujuan"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -399,18 +402,125 @@
                         android:layout_weight="1" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:orientation="vertical"></LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_pin_drop_black"
+                        android:text="Alamat"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="27" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtHasil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Berbagi lokasi terkini"
+                        android:paddingLeft="13dp" />
+
+                    <EditText
+                        android:id="@+id/editText5"
+                        android:layout_width="378dp"
+                        android:layout_height="75dp"
+                        android:layout_marginLeft="8dp"
+                        android:background="@drawable/border"
+                        android:ems="10"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:orientation="vertical"></LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Keterangan"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <EditText
+                        android:id="@+id/editText6"
+                        android:layout_width="378dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/border"
+                        android:ems="10"
+                        android:inputType="textMultiLine" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
                 <ProgressBar
                     android:id="@+id/loading"
-                    android:layout_marginTop="30dp"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
-                android:orientation="vertical"/>
+                android:orientation="vertical" />
 
             <LinearLayout
                 android:layout_width="match_parent"

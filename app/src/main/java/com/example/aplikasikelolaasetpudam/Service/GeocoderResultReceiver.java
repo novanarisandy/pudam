@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 
-import com.example.aplikasikelolaasetpudam.Service.Constants;
-
 public class GeocoderResultReceiver extends ResultReceiver {
     private String address;
     private DialogInterface dialog;
@@ -16,7 +14,7 @@ public class GeocoderResultReceiver extends ResultReceiver {
     }
 
     /**
-     *  Menerima balikan data dari GeocoderIntentService and menampilkan Toast di MainActivity.
+     * Menerima balikan data dari GeocoderIntentService and menampilkan Toast di MainActivity.
      */
 
     @Override

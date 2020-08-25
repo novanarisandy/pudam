@@ -1,11 +1,13 @@
 <resources>
     <string name="main_activity_melihatdataaset">Data Aset</string>
-    <string name="main_activity_pencarianlokasi">Pencarian Lokasi</string>
-    <string name="main_activity_tanggapanpencarian">Tanggapan Pencarian</string>
+    <string name="main_activity_pencarianlokasi">Pencarian Lokasi Aset</string>
+    <string name="main_activity_tanggapanpencarian">Tanggapan Pencarian Aset</string>
+    <string name="main_activity_detailpencarian">Detail Pencarian Aset</string>
     <string name="main_activity_pindaiqrcode">Pindai QR Code</string>
     <string name="main_activity_detailaset">Detail Aset</string>
-    <string name="main_activity_perbaruikondisi">Perbarui Kondisi</string>
-    <string name="main_activity_perbaruimutasi">Perbarui Mutasi</string>
+    <string name="main_activity_perbaruikondisi">Perbarui Kondisi Aset</string>
+    <string name="main_activity_perbaruimutasi">Perbarui Mutasi Aset</string>
+    <string name="main_activity_perbaruiasettanah">Perbarui Aset Tanah</string>
     <string name="main_activity_profil">Profil</string>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -14,16 +16,20 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppFullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -2,7 +2,6 @@ package com.example.aplikasikelolaasetpudam;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,9 +32,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.aplikasikelolaasetpudam.Config.Server;
 import com.example.aplikasikelolaasetpudam.Controllers.LoginActivity;
 import com.example.aplikasikelolaasetpudam.Controllers.SessionManager;
@@ -54,62 +49,53 @@ import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class DetailAsetActivity extends AppCompatActivity {
+public class DetailTanahActivity extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST = 1;
     private static final int SELECT_FILE = 2;
     public File camera = null;
-    String id_aset = "";
-    String kode_aset = "";
+    String id_tanah = "";
+    String kode_tanah = "";
     //    private final String URL = "http://192.168.43.134/aset/public/aset/test?id="+kode_aset;
     SessionManager sessionManager;
     // Tambahkan Foto
     CircleImageView imageView;
-    Button Foto, Mutasi;
+    Button Foto;
     String currentPhotoPath;
-    String foto;
-    Context mContext;
-    private TextView KodeAset, NamaAset, Satuan, Volume, HargaPerolehan, ThnHargaPerolehan, SumberDana, Tarif, Golongan, KondisiAset, Lokasi, Keterangan;
+    private TextView KodeAset, NamaAset, LuasTanah, HargaTanah, SumberDana, StatusAset, Keterangan, Lokasi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_aset);
-        mContext = this;
+        setContentView(R.layout.activity_detail_tanah);
 
-        kode_aset = getIntent().getStringExtra("kode");
+        kode_tanah = getIntent().getStringExtra("kode");
         sessionManager = new SessionManager(getApplicationContext());
 
         KodeAset = (TextView) findViewById(R.id.textViewKodeAset);
         NamaAset = (TextView) findViewById(R.id.textViewNamaAset);
-        Satuan = (TextView) findViewById(R.id.textViewSatuan);
-        Volume = (TextView) findViewById(R.id.textViewVolume);
-        HargaPerolehan = (TextView) findViewById(R.id.textViewHargaPerolehan);
-        ThnHargaPerolehan = (TextView) findViewById(R.id.textViewThnHargaPerolehan);
+        LuasTanah = (TextView) findViewById(R.id.textViewLuasTanah);
+        HargaTanah = (TextView) findViewById(R.id.textViewHargaTanah);
         SumberDana = (TextView) findViewById(R.id.textViewSumberDana);
-        Tarif = (TextView) findViewById(R.id.textViewTarif);
-        Golongan = (TextView) findViewById(R.id.textViewGolongan);
-        KondisiAset = (TextView) findViewById(R.id.textViewKondisiAset);
-        Lokasi = (TextView) findViewById(R.id.textViewLokasi);
+        StatusAset = (TextView) findViewById(R.id.textViewStatusAset);
         Keterangan = (TextView) findViewById(R.id.textViewKeterangan);
-        Mutasi = (Button) findViewById(R.id.button2);
+        Lokasi = (TextView) findViewById(R.id.textViewLokasi);
 
         inputData();
 
         imageView = (CircleImageView) findViewById(R.id.myPict);
         Foto = (Button) findViewById(R.id.button);
-        Foto.setVisibility(View.GONE);
         Foto.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(DetailAsetActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(DetailAsetActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
+                if (ContextCompat.checkSelfPermission(DetailTanahActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(DetailTanahActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
 
                 } else {
                     CharSequence options[] = new CharSequence[]{"Kamera", "Galeri"};
 
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(DetailAsetActivity.this);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(DetailTanahActivity.this);
 
                     builder.setTitle("Foto aset");
                     builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -129,7 +115,7 @@ public class DetailAsetActivity extends AppCompatActivity {
                                         }
                                         // Continue only if the File was successfully created
                                         if (photoFile != null) {
-                                            Uri photoURI = FileProvider.getUriForFile(DetailAsetActivity.this,
+                                            Uri photoURI = FileProvider.getUriForFile(DetailTanahActivity.this,
                                                 "com.example.android.path",
                                                 photoFile);
                                             takePictureIntent.putExtra(MediaStore.ACTION_IMAGE_CAPTURE, photoURI);
@@ -138,7 +124,7 @@ public class DetailAsetActivity extends AppCompatActivity {
                                         }
                                     }
                                 } catch (ActivityNotFoundException ex) {
-                                    Toast.makeText(DetailAsetActivity.this, "Gagal membuka Kamera", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(DetailTanahActivity.this, "Gagal membuka Kamera", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -157,7 +143,7 @@ public class DetailAsetActivity extends AppCompatActivity {
                                     try {
                                         startActivityForResult(pickPhoto, SELECT_FILE);//
                                     } catch (ActivityNotFoundException ex) {
-                                        Toast.makeText(DetailAsetActivity.this, "Gagal membuka Galeri", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(DetailTanahActivity.this, "Gagal membuka Galeri", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
@@ -217,7 +203,6 @@ public class DetailAsetActivity extends AppCompatActivity {
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 30, baos);
                         byte[] thumb_byte = baos.toByteArray();
-                        foto = Base64.encodeToString(thumb_byte, Base64.DEFAULT);
                         File f = new File(currentPhotoPath);
                         try {
                             f.createNewFile();
@@ -242,7 +227,7 @@ public class DetailAsetActivity extends AppCompatActivity {
 
                     try {
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        Bitmap gambar = Check.handleSamplingAndRotationBitmap(DetailAsetActivity.this, imageUri);
+                        Bitmap gambar = Check.handleSamplingAndRotationBitmap(DetailTanahActivity.this, imageUri);
                         gambar.compress(Bitmap.CompressFormat.JPEG, 30, baos);
                         byte[] thumb_byte = baos.toByteArray();
                         File f = new File(currentPhotoPath);
@@ -295,9 +280,8 @@ public class DetailAsetActivity extends AppCompatActivity {
     }
 
     private void inputData() {
-//        String URL = "http://192.168.43.134/aset/public/aset/test?id=" + kode_aset;
-        String URL = Server.API_URL + "get-aset-detail/" + kode_aset;
-        Log.e("QRCODE URL",URL);
+//        String URL = "http://192.168.3.7/aset/public/aset/test?id=" + kode_tanah;
+        String URL = Server.API_URL + "get-aset-detail?aset_id=" + kode_tanah;
         JsonArrayRequest stringRequest = new JsonArrayRequest(Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -305,32 +289,15 @@ public class DetailAsetActivity extends AppCompatActivity {
                     // Ambil data JSON
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject data = response.getJSONObject(i);
-                        id_aset = data.getString("id");
+                        id_tanah = data.getString("id");
                         KodeAset.setText(data.getString("kode_aset"));
                         NamaAset.setText(data.getString("nama"));
-                        Satuan.setText(data.getString("id_satuan"));
-                        Volume.setText(data.getString("volume"));
-                        HargaPerolehan.setText(data.getString("harga_perolehan"));
-                        ThnHargaPerolehan.setText(data.getString("tahun_perolehan"));
+                        LuasTanah.setText(data.getString("luas_tanah"));
+                        HargaTanah.setText(data.getString("harga_tanah"));
                         SumberDana.setText(data.getString("id_sumberdana"));
-                        Tarif.setText(data.getString("tarif"));
-                        Golongan.setText(data.getString("id_golongan"));
-                        if (data.getString("bisa_mutasi").equals("t")) {
-                            Mutasi.setVisibility(View.GONE);
-                        } else {
-                            Mutasi.setVisibility(View.VISIBLE);
-                        }
-                        KondisiAset.setText(data.getString("id_kondisi"));
-                        Lokasi.setText(data.getString("id_lokasi"));
+                        StatusAset.setText(data.getString("id_status"));
                         Keterangan.setText(data.getString("keterangan"));
-
-
-                        RequestOptions options;
-                        options = new RequestOptions().centerCrop().placeholder(R.drawable.aset).error(R.drawable.aset);
-                        Glide.with(mContext).load(Server.BASE_URL + data.getString("foto"))
-                            .apply(RequestOptions.skipMemoryCacheOf(true))
-                            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-                            .apply(options).into(imageView);
+                        Lokasi.setText(data.getString("id_lokasi"));
 
                     }
                 } catch (Exception e) {
@@ -350,16 +317,9 @@ public class DetailAsetActivity extends AppCompatActivity {
     }
 
     public void Perbarui_Kondisi(View view) {
-        Intent intent = new Intent(DetailAsetActivity.this, PerbaruiKondisiActivity.class);
-        intent.putExtra("kode_aset", kode_aset);
-        intent.putExtra("id_aset", id_aset);
-        startActivity(intent);
-    }
-
-    public void Perbarui_Mutasi(View view) {
-        Intent intent = new Intent(DetailAsetActivity.this, PerbaruiMutasiActivity.class);
-        intent.putExtra("kode_asets", kode_aset);
-        intent.putExtra("id_asets", id_aset);
+        Intent intent = new Intent(DetailTanahActivity.this, PerbaruiTanahActivity.class);
+        intent.putExtra("kode_tanah", kode_tanah);
+        intent.putExtra("id_tanah", id_tanah);
         startActivity(intent);
     }
 }
