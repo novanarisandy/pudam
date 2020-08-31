@@ -2,20 +2,18 @@ package com.example.aplikasikelolaasetpudam;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -24,6 +22,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.aplikasikelolaasetpudam.Adapter.MyAdapter;
 import com.example.aplikasikelolaasetpudam.Config.Server;
 import com.example.aplikasikelolaasetpudam.Controllers.LoginActivity;
+import com.example.aplikasikelolaasetpudam.Controllers.SessionManager;
 import com.example.aplikasikelolaasetpudam.Model.ModelAset;
 
 import org.json.JSONArray;
@@ -31,7 +30,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DataAsetActivity extends AppCompatActivity {
 
@@ -45,6 +46,7 @@ public class DataAsetActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MyAdapter adapter;
     private List<ModelAset> mData;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,26 +59,27 @@ public class DataAsetActivity extends AppCompatActivity {
         adapter = new MyAdapter(this, mData);
         recyclerView.setAdapter(adapter);
 
-        EditText editText = findViewById(R.id.action_search);
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        sessionManager = new SessionManager(this);
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                filter(editable.toString());
-            }
-        });
+//        EditText editText = findViewById(R.id.action_search);
+//        editText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                filter(editable.toString());
+//            }
+//        });
 
         inputData();
-
     }
 
     private void filter(String text) {
@@ -138,7 +141,8 @@ public class DataAsetActivity extends AppCompatActivity {
     private void inputData() {
 //        String URL_JSON = "http://192.168.43.134/aset/public/aset/aset";
         String URL_JSON = Server.API_URL + "get-aset-list";
-        Log.e("GET ASET",URL_JSON);
+        Log.e("GET ASET URL=", URL_JSON + " token:" + sessionManager.getToken());
+//        Log.e("TOKEN : ", "");
         request = new JsonArrayRequest(URL_JSON, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -178,7 +182,16 @@ public class DataAsetActivity extends AppCompatActivity {
 //                Toast.makeText(DataAsetActivity.this, "Terjadi kesalahan " + error.toString(),
 //                        Toast.LENGTH_SHORT).show();
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + sessionManager.getToken());
+                headers.put("Accept", "application/json");
+                Log.e("HEADER ", sessionManager.getToken());
+                return headers;
+            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request);

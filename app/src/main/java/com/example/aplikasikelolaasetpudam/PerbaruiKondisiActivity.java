@@ -121,6 +121,7 @@ public class PerbaruiKondisiActivity extends AppCompatActivity {
 
         id_aset = getIntent().getStringExtra("id_aset");
         kode_aset = getIntent().getStringExtra("kode_aset");
+
         sessionManager = new SessionManager(getApplicationContext());
 
         Loading = (ProgressBar) findViewById(R.id.loading);
@@ -504,7 +505,16 @@ public class PerbaruiKondisiActivity extends AppCompatActivity {
 //                Toast.makeText(PerbaruiKondisiActivity.this, "Terjadi kesalahan " + error.toString(),
 //                        Toast.LENGTH_SHORT).show();
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + sessionManager.getToken());
+                headers.put("Accept", "application/json");
+                Log.e("HEADER ", sessionManager.getToken());
+                return headers;
+            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
@@ -551,10 +561,20 @@ public class PerbaruiKondisiActivity extends AppCompatActivity {
 //                params.put("id_kondisi", KondisiAset.getSelectedItem().toString());
                 params.put("longitude", longitude);
                 params.put("latitude", latitude);
-                params.put("lokasi",LokasiAset.getText().toString());
+                params.put("lokasi", LokasiAset.getText().toString());
                 params.put("alamat", Alamat.getText().toString());
                 params.put("keterangan", Keterangan.getText().toString());
+                params.put("token", sessionManager.getToken());
                 return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + sessionManager.getToken());
+                headers.put("Accept", "application/json");
+                Log.e("HEADER ", sessionManager.getToken());
+                return headers;
             }
         };
 

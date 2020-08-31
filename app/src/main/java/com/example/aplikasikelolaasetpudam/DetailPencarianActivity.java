@@ -1,5 +1,6 @@
 package com.example.aplikasikelolaasetpudam;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,13 +10,22 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.aplikasikelolaasetpudam.Config.Server;
 import com.example.aplikasikelolaasetpudam.Controllers.LoginActivity;
 import com.example.aplikasikelolaasetpudam.Model.ModelAset;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DetailPencarianActivity extends AppCompatActivity {
 
     ModelAset modelAset;
     private TextView KodeAset, NamaAset, Satuan, Volume, HargaPerolehan, ThnHargaPerolehan, SumberDana, Tarif, Golongan, KondisiAset, Lokasi, Keterangan;
+    CircleImageView imageView;
+    private RequestOptions options;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +34,7 @@ public class DetailPencarianActivity extends AppCompatActivity {
 
         modelAset = getIntent().getParcelableExtra("detail_pencarian_aset");
 
+        imageView = (CircleImageView) findViewById(R.id.myPict);
         KodeAset = (TextView) findViewById(R.id.textViewKodeAset);
         NamaAset = (TextView) findViewById(R.id.textViewNamaAset);
         Satuan = (TextView) findViewById(R.id.textViewSatuan);
@@ -37,6 +48,12 @@ public class DetailPencarianActivity extends AppCompatActivity {
         Lokasi = (TextView) findViewById(R.id.textViewLokasi);
         Keterangan = (TextView) findViewById(R.id.textViewKeterangan);
 
+        RequestOptions options;
+        options = new RequestOptions().centerCrop().placeholder(R.drawable.aset).error(R.drawable.aset);
+        Glide.with(DetailPencarianActivity.this).load(Server.BASE_URL + modelAset.getImage_url())
+                .apply(RequestOptions.skipMemoryCacheOf(true))
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                .apply(options).into(imageView);
         KodeAset.setText(modelAset.getKode());
         NamaAset.setText(modelAset.getNama());
         Satuan.setText(modelAset.getSatuan());

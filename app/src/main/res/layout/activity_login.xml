@@ -176,8 +176,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:text="belum memiliki akun? klik"
                     android:textColor="@android:color/black"
+
                     android:textStyle="bold" />
 
                 <Button
@@ -187,6 +189,7 @@
                     android:layout_weight="1"
                     android:background="#00FFFFFF"
                     android:onClick="Register"
+                    android:visibility="gone"
                     android:text="@string/example_by_case_sign_in"
                     android:textAllCaps="false"
                     android:textColor="@android:color/black"

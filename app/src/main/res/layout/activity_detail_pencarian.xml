@@ -27,17 +27,6 @@
                     android:layout_height="200dp"
                     android:src="@drawable/aset" />
 
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:background="#00FFFFFF"
-                    android:text="@string/example_by_case_import"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="10dp"

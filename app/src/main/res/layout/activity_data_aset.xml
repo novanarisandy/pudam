@@ -6,12 +6,6 @@
     android:orientation="vertical"
     tools:context=".DataAsetActivity">
 
-    <EditText
-        android:id="@+id/action_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_date_range_black" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView1"
         android:layout_width="match_parent"

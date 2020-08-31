@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 //            intent.putExtra("Username", username);
 //            intent.putExtra("Password", password);
             startActivity(intent);
-
+            finish();
         }
 
         Login.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +97,11 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("Berhasil");
+
+                    Log.e("token",jsonObject.getJSONObject("Login").getString("Token"));
+
+                    sessionManager.saveToken(sessionManager.TOKEN, jsonObject.getJSONObject("Login").getString("Token"));
+                    sessionManager.saveBoolean(sessionManager.BOOLEAN, true);
 //                    JSONArray jsonArray = jsonObject.getJSONArray("Login");
                     Log.e("LOGIN","LOGIN ATTEMPT " + Username + "::" + Password + "::" + success);
                     if (success.equals("1")) {
@@ -106,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                         String password = jsonObject.getJSONObject("Login").getString("Password");
                         sessionManager.createSession(username, password);
 
-                        Toast.makeText(LoginActivity.this, "Login Berhasil. \nUsername Anda : " + username
+                        Toast.makeText(LoginActivity.this, "Login Berhasil \nUsername Anda : " + username
                             + "\nPassword Anda : " + password, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.putExtra("Username", username);
@@ -134,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
 //
 //                            Loading.setVisibility(View.GONE);
 //                        }
-                    }else{
+                    } else {
 
                         Loading.setVisibility(View.GONE);
                         Login.setVisibility(View.VISIBLE);

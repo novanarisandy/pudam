@@ -481,7 +481,16 @@ public class PerbaruiTanahActivity extends AppCompatActivity {
 //                Toast.makeText(PerbaruiKondisiActivity.this, "Terjadi kesalahan " + error.toString(),
 //                        Toast.LENGTH_SHORT).show();
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + sessionManager.getToken());
+                headers.put("Accept", "application/json");
+                Log.e("HEADER ", sessionManager.getToken());
+                return headers;
+            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
@@ -528,6 +537,16 @@ public class PerbaruiTanahActivity extends AppCompatActivity {
                 params.put("id_lokasi", Alamat.getText().toString());
                 params.put("keterangan", Keterangan.getText().toString());
                 return params;
+            }
+
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + sessionManager.getToken());
+                headers.put("Accept", "application/json");
+                Log.e("HEADER ", sessionManager.getToken());
+                return headers;
             }
         };
 

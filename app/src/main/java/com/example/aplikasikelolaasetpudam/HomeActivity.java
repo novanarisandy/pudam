@@ -13,20 +13,20 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.aplikasikelolaasetpudam.Controllers.LoginActivity;
+import com.example.aplikasikelolaasetpudam.Controllers.SessionManager;
 
 public class HomeActivity extends AppCompatActivity {
 
-//    SessionManager sessionManager;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        sessionManager = new SessionManager(this);
+        sessionManager = new SessionManager(this);
 //        sessionManager.checkLogin();
-//
-//
+
 //        HashMap<String, String> user = sessionManager.getUserDetail();
     }
 
@@ -87,5 +87,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void clearApplicationData() {
+        sessionManager.logoutUser();
     }
 }

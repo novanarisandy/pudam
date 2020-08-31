@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,9 +16,9 @@ import com.example.aplikasikelolaasetpudam.Controllers.LoginActivity;
 
 public class PencarianLokasiActivity extends AppCompatActivity {
 
-    String foto = "";
-    String id_aset = "";
-    String kode_aset = "";
+//    String foto = "";
+//    String id_aset = "";
+//    String kode_aset = "";
     private EditText NamaAset;
     private Button Cari;
 
@@ -95,6 +96,11 @@ public class PencarianLokasiActivity extends AppCompatActivity {
     public void Tanggapan_Pencarian(View view) {
         Intent intent = new Intent(PencarianLokasiActivity.this, TanggapanPencarianActivity.class);
         intent.putExtra("nama", NamaAset.getText().toString());
+        if (NamaAset.getText().toString().length()==0){
+            // Jika form Nama belum di isi / masih kosong
+            NamaAset.setError("Masukkan nama yang diperlukan");
+        }
+
         startActivity(intent);
     }
 }

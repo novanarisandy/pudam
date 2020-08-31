@@ -131,6 +131,7 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
         TglPerbarui = (EditText) findViewById(R.id.editText2);
         KondisiAset = (Spinner) findViewById(R.id.spinner);
         LokasiAsal = (EditText) findViewById(R.id.editText3);
+        LokasiAsal.setEnabled(false);
         LokasiTujuan = (EditText) findViewById(R.id.editText4);
         textHasil = (TextView) findViewById(R.id.txtHasil);
         Alamat = (EditText) findViewById(R.id.editText5);
@@ -233,22 +234,22 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
             }
         });
 
-        Simpan = (Button) findViewById(R.id.btnSimpan);
-        Simpan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addSimpan();
-            }
-        });
-
-        Batal = (Button) findViewById(R.id.btnBatal);
-        Batal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PerbaruiMutasiActivity.this, DetailAsetActivity.class);
-                finish();
-            }
-        });
+//        Simpan = (Button) findViewById(R.id.btnSimpan);
+//        Simpan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                addSimpan();
+//            }
+//        });
+//
+//        Batal = (Button) findViewById(R.id.btnBatal);
+//        Batal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(PerbaruiMutasiActivity.this, DetailAsetActivity.class);
+//                finish();
+//            }
+//        });
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -521,7 +522,16 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
 //                Toast.makeText(PerbaruiMutasiActivity.this, "Terjadi kesalahan " + error.toString(),
 //                        Toast.LENGTH_SHORT).show();
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + sessionManager.getToken());
+                headers.put("Accept", "application/json");
+                Log.e("HEADER ", sessionManager.getToken());
+                return headers;
+            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
@@ -561,17 +571,26 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
                 if (KondisiAset.getSelectedItem().equals("Barang Tidak Ada")) {
                     params.put("kondisi", "BTA");
                 }
-
 //                params.put("id_kondisi", KondisiAset.getSelectedItem().toString());
 //                params.put("lokasi_awal", LokasiAsal.getText().toString());
-
                 params.put("longitude", longitude);
                 params.put("latitude", latitude);
                 params.put("lokasi_awal", LokasiAsal.getText().toString());
                 params.put("lokasi_tujuan", LokasiTujuan.getText().toString());
                 params.put("alamat", Alamat.getText().toString());
                 params.put("keterangan", Keterangan.getText().toString());
+//                params.put("token", sessionManager.getToken());
                 return params;
+            }
+
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + sessionManager.getToken());
+                headers.put("Accept", "application/json");
+                Log.e("HEADER ", sessionManager.getToken());
+                return headers;
             }
         };
 

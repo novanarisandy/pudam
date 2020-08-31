@@ -15,6 +15,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.aplikasikelolaasetpudam.Adapter.RecyclerViewAdapter;
 import com.example.aplikasikelolaasetpudam.Config.Server;
 import com.example.aplikasikelolaasetpudam.Controllers.LoginActivity;
+import com.example.aplikasikelolaasetpudam.Controllers.SessionManager;
 import com.example.aplikasikelolaasetpudam.Model.ModelAset;
 
 import org.json.JSONArray;
@@ -30,7 +32,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TanggapanPencarianActivity extends AppCompatActivity {
 
@@ -43,6 +47,7 @@ public class TanggapanPencarianActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private RecyclerView recyclerView;
     private List<ModelAset> mData;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class TanggapanPencarianActivity extends AppCompatActivity {
         arraylistModelAset = new ArrayList<>();
         arraylistModelAset.clear();
         recyclerView = findViewById(R.id.recyclerView2);
+        sessionManager = new SessionManager(this);
 
         cari = getIntent().getStringExtra("nama");
 
@@ -145,7 +151,16 @@ public class TanggapanPencarianActivity extends AppCompatActivity {
 //                Toast.makeText(DataAsetActivity.this, "Terjadi kesalahan " + error.toString(),
 //                        Toast.LENGTH_SHORT).show();
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + sessionManager.getToken());
+                headers.put("Accept", "application/json");
+                Log.e("HEADER ", sessionManager.getToken());
+                return headers;
+            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request);

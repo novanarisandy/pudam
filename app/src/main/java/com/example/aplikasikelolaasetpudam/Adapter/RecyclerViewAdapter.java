@@ -23,7 +23,7 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
-    RequestOptions options;
+    private RequestOptions options;
     private Context mContext;
     private List<ModelAset> mData;
 
