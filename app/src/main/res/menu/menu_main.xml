@@ -16,11 +16,15 @@
             app:showAsAction="never" />
         <item
             android:id="@+id/item2"
-            android:title="Login"
+            android:title="Melihat Data Aset"
             app:showAsAction="never" />
         <item
             android:id="@+id/item3"
-            android:title="Profil"
+            android:title="Pencarian Lokasi"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/item4"
+            android:title="Pindai QR Code"
             app:showAsAction="never" />
     </group>
 

@@ -30,5 +30,6 @@ public class GeocoderResultReceiver extends ResultReceiver {
 
         dialog.dismiss();
     }
+
 }
 

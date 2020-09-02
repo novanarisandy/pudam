@@ -80,7 +80,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PerbaruiMutasiActivity extends AppCompatActivity {
 
-    //    private final String URL = "http://192.168.43.134/aset/public/aset/test?id="+kode_aset;
+//    private final String URL = "http://192.168.43.134/aset/public/aset/test?id="+kode_aset;
 //    private final String URL_MUTASI = "http://192.168.43.134/aset/public/aset/aset/"+id_aset;
     private static final String TAG = "PerbaruiMutasiActivity";
     private static final int CAMERA_REQUEST = 1;
@@ -135,6 +135,7 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
         LokasiTujuan = (EditText) findViewById(R.id.editText4);
         textHasil = (TextView) findViewById(R.id.txtHasil);
         Alamat = (EditText) findViewById(R.id.editText5);
+        Alamat.setEnabled(false);
         Keterangan = (EditText) findViewById(R.id.editText6);
         mContext = this;
         geocoderReceiver = new GeocoderResultReceiver(new Handler());
@@ -466,9 +467,11 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.item1) {
             startActivity(new Intent(this, HomeActivity.class));
         } else if (item.getItemId() == R.id.item2) {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, DataAsetActivity.class));
         } else if (item.getItemId() == R.id.item3) {
-            startActivity(new Intent(this, ProfilActivity.class));
+            startActivity(new Intent(this, PencarianLokasiActivity.class));
+        } else if (item.getItemId() == R.id.item4) {
+            startActivity(new Intent(this, ScannerActivity.class));
         }
         return true;
     }
@@ -632,5 +635,6 @@ public class PerbaruiMutasiActivity extends AppCompatActivity {
                 Toast.LENGTH_LONG).show();
         }
     }
+
 }
 

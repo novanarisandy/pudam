@@ -80,7 +80,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PerbaruiKondisiActivity extends AppCompatActivity {
 
-    //    private final String URL = "http://10.252.22.110/aset/public/aset/test?id="+kode_aset;
+//    private final String URL = "http://10.252.22.110/aset/public/aset/test?id="+kode_aset;
 //    private final String URL_KONDISI = "http://10.252.22.110/aset/public/aset/aset/"+id_aset;
     private static final String TAG = "PerbaruiKondisiActivity";
     private static final int CAMERA_REQUEST = 1;
@@ -134,6 +134,7 @@ public class PerbaruiKondisiActivity extends AppCompatActivity {
         LokasiAset = (EditText) findViewById(R.id.editText3);
         textHasil = (TextView) findViewById(R.id.txtHasil);
         Alamat = (EditText) findViewById(R.id.editText4);
+        Alamat.setEnabled(false);
         Keterangan = (EditText) findViewById(R.id.editText5);
         mContext = this;
         geocoderReceiver = new GeocoderResultReceiver(new Handler());
@@ -450,9 +451,11 @@ public class PerbaruiKondisiActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.item1) {
             startActivity(new Intent(this, HomeActivity.class));
         } else if (item.getItemId() == R.id.item2) {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, DataAsetActivity.class));
         } else if (item.getItemId() == R.id.item3) {
-            startActivity(new Intent(this, ProfilActivity.class));
+            startActivity(new Intent(this, PencarianLokasiActivity.class));
+        } else if (item.getItemId() == R.id.item4) {
+            startActivity(new Intent(this, ScannerActivity.class));
         }
         return true;
     }
@@ -544,6 +547,7 @@ public class PerbaruiKondisiActivity extends AppCompatActivity {
                 params.put("foto", foto);
                 Log.e("foto",foto);
                 params.put("aset_id", id_aset);
+//                params.put("kode_aset", KodeAset.getText().toString());
 //                params.put("nama", NamaAset.getText().toString());
 //                params.put("tanggal", TglPerbarui.getText().toString());
                 if (KondisiAset.getSelectedItem().equals("Baik")) {
@@ -564,7 +568,7 @@ public class PerbaruiKondisiActivity extends AppCompatActivity {
                 params.put("lokasi", LokasiAset.getText().toString());
                 params.put("alamat", Alamat.getText().toString());
                 params.put("keterangan", Keterangan.getText().toString());
-                params.put("token", sessionManager.getToken());
+//                params.put("token", sessionManager.getToken());
                 return params;
             }
 
@@ -617,4 +621,5 @@ public class PerbaruiKondisiActivity extends AppCompatActivity {
                 Toast.LENGTH_LONG).show();
         }
     }
+
 }

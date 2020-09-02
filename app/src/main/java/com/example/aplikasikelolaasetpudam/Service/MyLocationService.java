@@ -71,4 +71,5 @@ public class MyLocationService extends Service {
                 Toast.LENGTH_LONG).show();
         }
     }
+
 }

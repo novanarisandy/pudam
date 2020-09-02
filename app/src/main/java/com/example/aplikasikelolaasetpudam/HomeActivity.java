@@ -42,9 +42,11 @@ public class HomeActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.item1) {
             startActivity(new Intent(this, HomeActivity.class));
         } else if (item.getItemId() == R.id.item2) {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, DataAsetActivity.class));
         } else if (item.getItemId() == R.id.item3) {
-            startActivity(new Intent(this, ProfilActivity.class));
+            startActivity(new Intent(this, PencarianLokasiActivity.class));
+        } else if (item.getItemId() == R.id.item4) {
+            startActivity(new Intent(this, ScannerActivity.class));
         }
         return true;
     }
@@ -89,4 +91,5 @@ public class HomeActivity extends AppCompatActivity {
     private void clearApplicationData() {
         sessionManager.logoutUser();
     }
+
 }

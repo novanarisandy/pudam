@@ -334,4 +334,5 @@ public class DetailTanahActivity extends AppCompatActivity {
         intent.putExtra("id_tanah", id_tanah);
         startActivity(intent);
     }
+
 }

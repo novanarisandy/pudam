@@ -36,11 +36,11 @@ import java.util.Map;
 
 public class DataAsetActivity extends AppCompatActivity {
 
-    ArrayList<ModelAset> arraylistModelAset;
-    //    private TextView KodeAset, NamaAset, KondisiAset, StatusAset, Lokasi;
+//    private TextView KodeAset, NamaAset, KondisiAset, StatusAset, Lokasi;
 //    String id_aset = "";
 //    String kode_aset = "";
 //    private final String URL = "http://192.168.43.134/aset/public/aset/test?id="+kode_aset;
+    ArrayList<ModelAset> arraylistModelAset;
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
     private RecyclerView recyclerView;
@@ -125,9 +125,11 @@ public class DataAsetActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.item1) {
             startActivity(new Intent(this, HomeActivity.class));
         } else if (item.getItemId() == R.id.item2) {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, DataAsetActivity.class));
         } else if (item.getItemId() == R.id.item3) {
-            startActivity(new Intent(this, ProfilActivity.class));
+            startActivity(new Intent(this, PencarianLokasiActivity.class));
+        } else if (item.getItemId() == R.id.item4) {
+            startActivity(new Intent(this, ScannerActivity.class));
         }
         return true;
     }
@@ -202,4 +204,5 @@ public class DataAsetActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
+
 }

@@ -77,7 +77,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PerbaruiTanahActivity extends AppCompatActivity {
 
-    //    private final String URL = "http://10.252.22.110/aset/public/aset/test?id="+kode_aset;
+//    private final String URL = "http://10.252.22.110/aset/public/aset/test?id="+kode_aset;
 //    private final String URL_KONDISI = "http://10.252.22.110/aset/public/aset/aset/"+id_aset;
     private static final String TAG = "PerbaruiTanahActivity";
     private static final int CAMERA_REQUEST = 1;
@@ -585,4 +585,5 @@ public class PerbaruiTanahActivity extends AppCompatActivity {
                 Toast.LENGTH_LONG).show();
         }
     }
+
 }

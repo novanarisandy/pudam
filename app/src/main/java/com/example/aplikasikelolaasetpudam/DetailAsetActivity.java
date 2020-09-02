@@ -59,12 +59,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DetailAsetActivity extends AppCompatActivity {
 
-    private static final int CAMERA_REQUEST = 1;
-    private static final int SELECT_FILE = 2;
-    public File camera = null;
+    //    private final String URL = "http://192.168.43.134/aset/public/aset/test?id="+kode_aset;
+    private TextView KodeAset, NamaAset, Satuan, Volume, HargaPerolehan, ThnHargaPerolehan, SumberDana, Tarif, Golongan, KondisiAset, Lokasi, Keterangan;
     String id_aset = "";
     String kode_aset = "";
-    //    private final String URL = "http://192.168.43.134/aset/public/aset/test?id="+kode_aset;
     SessionManager sessionManager;
     // Tambahkan Foto
     CircleImageView imageView;
@@ -72,7 +70,9 @@ public class DetailAsetActivity extends AppCompatActivity {
     String currentPhotoPath;
     String foto;
     Context mContext;
-    private TextView KodeAset, NamaAset, Satuan, Volume, HargaPerolehan, ThnHargaPerolehan, SumberDana, Tarif, Golongan, KondisiAset, Lokasi, Keterangan;
+    private static final int CAMERA_REQUEST = 1;
+    private static final int SELECT_FILE = 2;
+    public File camera = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -284,9 +284,11 @@ public class DetailAsetActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.item1) {
             startActivity(new Intent(this, HomeActivity.class));
         } else if (item.getItemId() == R.id.item2) {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, DataAsetActivity.class));
         } else if (item.getItemId() == R.id.item3) {
-            startActivity(new Intent(this, ProfilActivity.class));
+            startActivity(new Intent(this, PencarianLokasiActivity.class));
+        } else if (item.getItemId() == R.id.item4) {
+            startActivity(new Intent(this, ScannerActivity.class));
         }
         return true;
     }
@@ -374,4 +376,5 @@ public class DetailAsetActivity extends AppCompatActivity {
         intent.putExtra("id_asets", id_aset);
         startActivity(intent);
     }
+
 }

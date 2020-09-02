@@ -133,4 +133,5 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
             myImages = itemView.findViewById(R.id.imageView);
         }
     }
+
 }

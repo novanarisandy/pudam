@@ -104,4 +104,5 @@ public class GeocoderIntentService extends IntentService {
         bundle.putString(Constants.RESULT_DATA_KEY, message);
         mReceiver.send(resultCode, bundle);
     }
+
 }
